@@ -16,8 +16,14 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:src ="@drawable/ic_launcher_foreground"/>
+            android:src="@drawable/ic_launcher_foreground" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:id="@+id/login_result"
+            android:gravity="center">
 
+        </TextView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -65,6 +71,7 @@
                     android:textSize="15dp"
                     android:text="로그인 상태 유지"/>
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="100dp"

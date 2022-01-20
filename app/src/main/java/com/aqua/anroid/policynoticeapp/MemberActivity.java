@@ -1,6 +1,11 @@
 package com.aqua.anroid.policynoticeapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +18,7 @@ public class MemberActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member);
 
-        /*
+
         Spinner ss_mpopular = (Spinner) findViewById(R.id.s_mpopular);
         String[] a_mpopular = getResources().getStringArray(R.array.popular_array);
 
@@ -25,9 +30,9 @@ public class MemberActivity extends AppCompatActivity {
         resetbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), com.example.search.ResetActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ResetActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
     }
 }
