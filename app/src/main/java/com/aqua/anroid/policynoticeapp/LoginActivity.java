@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
     private static String TAG = "phpquerytest";
@@ -31,9 +32,9 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG_NAME = "userID";
     private static final String TAG_COUNTRY ="userPass";
 
-    EditText mEditTextSearchKeyword1, mEditTextSearchKeyword2;
+    EditText edit_id, edit_pw;
     private Button btn_login, btn_register;
-    TextView mTextViewResult;
+    TextView state_result;
     String mJsonString;
 
     @Override
@@ -41,16 +42,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //et_id = findViewById(R.id.login_id);
-        //et_pass = findViewById(R.id.login_pw);
         btn_login = findViewById(R.id.login_btn);
         btn_register = findViewById(R.id.login_joinbtn);
-        mTextViewResult = (TextView) findViewById(R.id.login_result);
-        mEditTextSearchKeyword1 = (EditText) findViewById(R.id.login_id);
-        mEditTextSearchKeyword2 = (EditText) findViewById(R.id.login_pw);
-
-        /*mRecyclerView = (RecyclerView) findViewById(R.id.listView_main_list);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));*/
+        state_result = (TextView) findViewById(R.id.login_result);
+        edit_id = (EditText) findViewById(R.id.login_id);
+        edit_pw = (EditText) findViewById(R.id.login_pw);
 
 
         // 회원가입 버튼을 클릭 시 수행
@@ -65,12 +61,10 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                //mArrayList.clear();
                 GetData task = new GetData();
-                task.execute( mEditTextSearchKeyword1.getText().toString(), mEditTextSearchKeyword2.getText().toString());
+                task.execute( edit_id.getText().toString(), edit_pw.getText().toString());
             }
         });
-        //mArrayList = new ArrayList<>();
     }
 
     private class GetData extends AsyncTask<String, Void, String> {
@@ -87,17 +81,18 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
+        //에러가 있는 경우 에러메시지를 보여주고 아니면 JSON을 파싱하여 화면에 보여주는 showResult메소드를 호출
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-            mTextViewResult.setText(result);
+            state_result.setText(result);
             Log.d(TAG, "response - " + result);
 
             if (result == null){
 
-                mTextViewResult.setText(errorString);
+                state_result.setText(errorString);
             }
             else {
 
@@ -110,10 +105,11 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
+            //POST 방식 HTTP 통신의 아규먼트로 하여 서버에 있는 PHP파일 실행
             String searchKeyword1 = params[0];
             String searchKeyword2 = params[1];
 
-            String serverURL = "http://10.0.2.2/query.php";
+            String serverURL = "http://10.0.2.2/login.php";
             String postParameters = "userID=" + searchKeyword1 + "&userPass=" + searchKeyword2;
 
 
@@ -148,6 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
 
+                //StringBuilder를 사용하여 PHP가 에코한 문자열을 저장하고 스트링으로 변환하여 리턴
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -183,13 +180,13 @@ public class LoginActivity extends AppCompatActivity {
 
             for(int i=0;i<jsonArray.length();i++){
 
-                JSONObject item = jsonArray.getJSONObject(i);
+                /*JSONObject item = jsonArray.getJSONObject(i);
 
-                /*String id = item.getString(TAG_ID);
+                String id = item.getString(TAG_ID);
                 String userID = item.getString(TAG_NAME);
-                String userPass = item.getString(TAG_COUNTRY);*/
+                String userPass = item.getString(TAG_COUNTRY);
 
-                /*HashMap<String,String> hashMap = new HashMap<>();
+                HashMap<String,String> hashMap = new HashMap<>();
 
                 hashMap.put(TAG_ID, id);
                 hashMap.put(TAG_NAME, userID);
@@ -198,18 +195,9 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, MemberActivity.class);
                 startActivity(intent);
 
-                mTextViewResult.setText("");
+                state_result.setText("");
 
-                //mArrayList.add(hashMap);
             }
-
-            /*ListAdapter adapter = new SimpleAdapter(
-                    MainActivity.this, mArrayList, R.layout.item_list,
-                    new String[]{TAG_ID,TAG_NAME, TAG_COUNTRY},
-                    new int[]{R.id.textView_list_id, R.id.textView_list_name, R.id.textView_list_country}
-            );
-
-            mListViewList.setAdapter(adapter);*/
 
         } catch (JSONException e) {
 
