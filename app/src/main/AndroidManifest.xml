@@ -32,7 +32,8 @@
         <activity android:name=".MemberActivity"></activity>
         <activity android:name=".NonmemberActivity"></activity>
         <activity android:name=".ResetActivity"></activity>
-
+        <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".SettingActivity"></activity>
     </application>
 
 </manifest>

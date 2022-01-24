@@ -111,6 +111,9 @@ public class LoginActivity extends AppCompatActivity {
 
             String serverURL = "http://10.0.2.2/login.php";
             String postParameters = "userID=" + searchKeyword1 + "&userPass=" + searchKeyword2;
+            Log.d(TAG, "로그인id - " + searchKeyword1);
+            Log.d(TAG, "로그인pass - " + searchKeyword2);
+
 
 
             try {
@@ -191,11 +194,17 @@ public class LoginActivity extends AppCompatActivity {
                 hashMap.put(TAG_ID, id);
                 hashMap.put(TAG_NAME, userID);
                 hashMap.put(TAG_COUNTRY, userPass);*/
+                String test_id = edit_id.getText().toString();
 
                 Intent intent = new Intent(LoginActivity.this, MemberActivity.class);
+                intent.putExtra("유저id",test_id);
                 startActivity(intent);
 
+                Log.d(TAG, "intent보내는값 : " + test_id);
+
                 state_result.setText("");
+                //edit_id.setText("");
+                edit_pw.setText("");
 
             }
 
