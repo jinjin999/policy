@@ -6,11 +6,15 @@
 
 wampserver64 사용하여 phpmyadmin, mysql 접속
 
+
 dbcon.php, register.php, login.php, delete.php, main_userinfo.php, id_check.php 파일필요 (위치 : C:\wamp64\www)
 
 RegisterActivity - register.php, id_check.php
+
 LoginActivity - login.php
+
 MemberActivity - main_userinfo.php
+
 SettingActivity - delete.php
 
 
