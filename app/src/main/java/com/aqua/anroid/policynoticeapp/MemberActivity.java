@@ -35,7 +35,6 @@ public class MemberActivity extends AppCompatActivity {
     private static final String TAG_JSON="root";
 
     TextView member_age, member_gender, member_area, member_job;
-    TextView user_id_main, user_result_main;
     EditText user_id;
     ImageView btn_menu;
     String mJsonString;
@@ -62,13 +61,10 @@ public class MemberActivity extends AppCompatActivity {
             }
         });
 
-        user_result_main = findViewById(R.id.user_result_main);
-        user_id_main = findViewById(R.id.user_id_main);
         Intent intent2 = getIntent();
         String userID = intent2.getStringExtra("유저id");
 
         Log.d(TAG, "intent결과 : " + userID);
-        user_id_main.setText(userID);
         member_age = findViewById(R.id.age2);
         user_id = findViewById(R.id.login_id);
         member_gender = findViewById(R.id.gender2);
@@ -87,7 +83,7 @@ public class MemberActivity extends AppCompatActivity {
             }
         });
         GetData task = new GetData();
-        task.execute(user_id_main.getText().toString());
+        task.execute(userID);
 
     }
 
@@ -110,17 +106,12 @@ public class MemberActivity extends AppCompatActivity {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-            user_result_main.setText(result);
             Log.d(TAG, "response - " + result);
 
-            if (result == null){
-
-                user_result_main.setText(errorString);
-            }
-            else {
-
+            if (result != null){
                 mJsonString = result;
                 showResult();
+                //user_result_main.setText(errorString);
             }
         }
 

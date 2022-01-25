@@ -39,14 +39,7 @@
                     android:textSize="50dp"
                     android:textStyle="bold"
                     android:text="설 정"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="아이디"
-                    android:textSize="15dp"
-                    android:id="@+id/user_id_setting">
 
-                </TextView>
 
             </LinearLayout>
 
@@ -155,12 +148,7 @@
 
 
             </LinearLayout>
-            <TextView
-                android:id="@+id/setting_result"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:text="결과" />
+
         </LinearLayout>
     </LinearLayout>
 

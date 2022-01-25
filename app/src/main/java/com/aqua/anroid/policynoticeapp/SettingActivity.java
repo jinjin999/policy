@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +23,6 @@ public class SettingActivity extends AppCompatActivity {
     private static String TAG = "register";
 
     TextView setting_signout;
-    TextView user_id_setting, setting_result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +33,12 @@ public class SettingActivity extends AppCompatActivity {
         String userID = intent2.getStringExtra("유저id_setting");
 
         setting_signout = findViewById(R.id.setting_signout);
-        user_id_setting = findViewById(R.id.user_id_setting);
-        setting_result = findViewById(R.id.setting_result);
 
-
-        user_id_setting.setText(userID);
         setting_signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DeleteData task = new DeleteData();
-                task.execute(user_id_setting.getText().toString());
+                task.execute(userID);
             }
         });
 
@@ -65,7 +61,7 @@ public class SettingActivity extends AppCompatActivity {
 
             progressDialog.dismiss();
 
-            setting_result.setText(result);
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
             startActivity(intent);
 

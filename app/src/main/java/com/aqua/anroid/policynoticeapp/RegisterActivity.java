@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Spinner et_age, et_gender, et_area, et_job;
     private Button btn_register, btn_id_check_;
     private TextView register_state_result, check_id;
+    private int check_cnt=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { // 액티비티 시작시 처음으로 실행되는 생명주기!
@@ -68,6 +70,9 @@ public class RegisterActivity extends AppCompatActivity {
                 InsertData task = new InsertData();
                 task.execute("http://" + IP_ADDRESS + "/register.php", userID,userPass,userAge,userGender,userArea,userJob);
 
+                if(check_cnt==0){
+                    check_id.setText("아이디 중복확인을 해주세요");
+                }
             }
         });
 
@@ -75,10 +80,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                check_cnt = 1;
                 String userID = et_id.getText().toString();
 
                 InsertDataID task = new InsertDataID();
                 task.execute("http://" + IP_ADDRESS + "/id_check.php", userID);
+
+
             }
         });
     }
@@ -100,14 +108,19 @@ public class RegisterActivity extends AppCompatActivity {
 
             progressDialog.dismiss();
 
-            if(result.equals("새로운 사용자를 추가했습니다.")){
+            if(result.equals("가입되었습니다")){
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
-            else if(result.equals("아이디를 입력하세요.")){
+            else if(result.equals("아이디를 입력하세요")){
                check_id.setText(result);
                register_state_result.setText("");
             }
+            else if(result.equals("비밀번호를 입력하세요"))
+                register_state_result.setText(result);
+
             else{
                 register_state_result.setText(result);
             }
@@ -218,9 +231,9 @@ public class RegisterActivity extends AppCompatActivity {
 
             progressDialog.dismiss();
 
-            if(result.equals("이미 사용중인 아이디입니다.")
-                    || result.equals("아이디를 입력하세요.")
-                    || result.equals("사용가능한 아이디입니다.")){
+            if(result.equals("이미 사용중인 아이디입니다")
+                    || result.equals("아이디를 입력하세요")
+                    || result.equals("사용가능한 아이디입니다")){
                 check_id.setText(result);
             }
 
