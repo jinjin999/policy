@@ -1,14 +1,18 @@
 package com.aqua.anroid.policynoticeapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 
 public class NonmemberActivity extends AppCompatActivity {
+    ImageView btn_menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class NonmemberActivity extends AppCompatActivity {
         String[] a_etc = getResources().getStringArray(R.array.etc_array);
         String[] a_npopular = getResources().getStringArray(R.array.popular_array);
 
+        btn_menu = findViewById(R.id.menuimage);
 
         ArrayAdapter<String> adapter0;
         adapter0 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,a_age);
@@ -61,6 +66,15 @@ public class NonmemberActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter6;
         adapter6 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,a_npopular);
         ss_npopular.setAdapter(adapter6);
+
+        btn_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NonmemberActivity.this, NonMenuActivity.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
 }

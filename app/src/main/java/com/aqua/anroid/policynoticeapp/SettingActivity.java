@@ -22,7 +22,7 @@ public class SettingActivity extends AppCompatActivity {
     private static String IP_ADDRESS = "10.0.2.2";
     private static String TAG = "register";
 
-    TextView setting_signout;
+    TextView setting_signout, memberInfo_update;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +33,22 @@ public class SettingActivity extends AppCompatActivity {
         String userID = intent2.getStringExtra("유저id_setting");
 
         setting_signout = findViewById(R.id.setting_signout);
+        memberInfo_update = findViewById(R.id.setting_edituser);
 
         setting_signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DeleteData task = new DeleteData();
                 task.execute(userID);
+            }
+        });
+
+        memberInfo_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingActivity.this, MemberUpdateActivity.class);
+                startActivity(intent);
+
             }
         });
 

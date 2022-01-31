@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG_COUNTRY ="userPass";
 
     EditText edit_id, edit_pw;
-    private Button btn_login, btn_register;
+    private Button btn_login, btn_register, btn_nonmember;
     TextView state_result;
     String mJsonString;
 
@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 
         btn_login = findViewById(R.id.login_btn);
         btn_register = findViewById(R.id.login_joinbtn);
+        btn_nonmember = findViewById(R.id.login_nmemberbtn);
         state_result = (TextView) findViewById(R.id.login_result);
         edit_id = (EditText) findViewById(R.id.login_id);
         edit_pw = (EditText) findViewById(R.id.login_pw);
@@ -54,6 +55,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_nonmember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, NonmemberActivity.class);
                 startActivity(intent);
             }
         });
