@@ -28,10 +28,12 @@ public class RegisterActivity extends AppCompatActivity {
     private static String TAG = "register";
 
     private EditText et_id, et_pass;
-    private Spinner et_age, et_gender, et_area, et_job;
+    private Spinner sp_lifearray, sp_trgterIndvdlArray;
+    private Spinner et_area, et_job;
     private Button btn_register, btn_id_check_;
     private TextView register_state_result, check_id;
     private int check_cnt=0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { // 액티비티 시작시 처음으로 실행되는 생명주기!
@@ -41,13 +43,13 @@ public class RegisterActivity extends AppCompatActivity {
         // 아이디 값 찾아주기
         et_id = findViewById(R.id.join_id);
         et_pass = findViewById(R.id.join_pw);
-        et_age = findViewById(R.id.join_age);
-        et_gender = findViewById(R.id.join_gender);
-        et_area = findViewById(R.id.join_area);
-        et_job = findViewById(R.id.join_job);
+        sp_lifearray = findViewById(R.id.join_lifearray);
+        sp_trgterIndvdlArray = findViewById(R.id.join_trgterIndvdlArray);
+        //et_area = findViewById(R.id.join_area);
+        //et_job = findViewById(R.id.join_job);
         check_id = findViewById(R.id.check_id);
         btn_id_check_= findViewById(R.id.chekc_id_btn);
-        register_state_result = (TextView)findViewById(R.id.chekc_pass);
+        register_state_result = (TextView)findViewById(R.id.check_pass);
 
 
         register_state_result.setMovementMethod(new ScrollingMovementMethod());
@@ -62,13 +64,14 @@ public class RegisterActivity extends AppCompatActivity {
                 // EditText에 현재 입력되어있는 값을 get(가져온다)해온다.
                 String userID = et_id.getText().toString();
                 String userPass = et_pass.getText().toString();
-                String userAge = et_age.getSelectedItem().toString();
-                String userGender = et_gender.getSelectedItem().toString();
-                String userArea = et_area.getSelectedItem().toString();
-                String userJob = et_job.getSelectedItem().toString();
+                String userLifearray = sp_lifearray.getSelectedItem().toString();
+                String userTrgterIndvdl = sp_trgterIndvdlArray.getSelectedItem().toString();
+                //String userArea = et_area.getSelectedItem().toString();
+                //String userJob = et_job.getSelectedItem().toString();
+                
 
                 InsertData task = new InsertData();
-                task.execute("http://" + IP_ADDRESS + "/register.php", userID,userPass,userAge,userGender,userArea,userJob);
+                task.execute("http://" + IP_ADDRESS + "/register.php", userID,userPass,userLifearray,userTrgterIndvdl);
 
                 if(check_cnt==0){
                     check_id.setText("아이디 중복확인을 해주세요");
@@ -136,10 +139,8 @@ public class RegisterActivity extends AppCompatActivity {
 
             String userID = (String)params[1];
             String userPass = (String)params[2];
-            String userAge = (String)params[3];
-            String userGender = (String)params[4];
-            String userArea = (String)params[5];
-            String userJob = (String)params[6];
+            String userLifearray = (String)params[3];
+            String userTrgterIndvdl = (String)params[4];
 
 
             //PHP 파일을 실행시킬 수 있는 주소와 전송할 데이터를 준비
@@ -149,8 +150,8 @@ public class RegisterActivity extends AppCompatActivity {
             //HTTP 메시지 본문에 포함되어 전송되기 때문에 따로 데이터를 준비해야 한다,
             //전송할 데이터는 '이름=값' 형식이며 여러개를 보내야 할 경우에는 항목 사이에 &를 추가한다.
             //여기에 적어준 이름을 나중에 PHP에서 사용하여 값을 얻게 된다.
-            String postParameters = "userID=" + userID + "& userPass=" + userPass + "& userAge=" + userAge +
-                    "& userGender=" + userGender + "& userArea=" + userArea + "& userJob=" + userJob;
+            String postParameters = "userID=" + userID + "& userPass=" + userPass + "& userLifearray=" + userLifearray +
+                    "& userTrgterIndvdl=" + userTrgterIndvdl;
 
 
             try {

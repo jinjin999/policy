@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView state_result;
     String mJsonString;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +103,8 @@ public class LoginActivity extends AppCompatActivity {
             if (result == null){
 
                 state_result.setText(errorString);
+                Log.d(TAG, "result - " + state_result);
+
             }
             else {
 
@@ -122,7 +125,6 @@ public class LoginActivity extends AppCompatActivity {
             String postParameters = "userID=" + searchKeyword1 + "&userPass=" + searchKeyword2;
             Log.d(TAG, "로그인id - " + searchKeyword1);
             Log.d(TAG, "로그인pass - " + searchKeyword2);
-
 
 
             try {
@@ -189,10 +191,11 @@ public class LoginActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+            //JSONArray jsonArray = new JSONArray(TAG_JSON);
 
             for(int i=0;i<jsonArray.length();i++){
 
-                /*JSONObject item = jsonArray.getJSONObject(i);
+                JSONObject item = jsonArray.getJSONObject(i);
 
                 String id = item.getString(TAG_ID);
                 String userID = item.getString(TAG_NAME);
@@ -202,24 +205,25 @@ public class LoginActivity extends AppCompatActivity {
 
                 hashMap.put(TAG_ID, id);
                 hashMap.put(TAG_NAME, userID);
-                hashMap.put(TAG_COUNTRY, userPass);*/
+                hashMap.put(TAG_COUNTRY, userPass);
+
                 String test_id = edit_id.getText().toString();
 
                 Intent intent = new Intent(LoginActivity.this, MemberActivity.class);
                 intent.putExtra("유저id",test_id);
                 startActivity(intent);
 
-                Log.d(TAG, "intent보내는값 : " + test_id);
+                Log.d(TAG, "intent보내는값_login : " + test_id);
 
                 state_result.setText("");
-                //edit_id.setText("");
+                edit_id.setText("");
                 edit_pw.setText("");
 
             }
 
         } catch (JSONException e) {
 
-            Log.d(TAG, "showResult : ", e);
+            Log.d(TAG, "showResult_login : ", e);
         }
 
     }

@@ -1,18 +1,104 @@
 package com.aqua.anroid.policynoticeapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class FavoriteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.CustomViewHolder> {
+
+    private ArrayList<FavoriteData> mList = null;
+    private Activity context = null;
+
+
+    public FavoriteAdapter(Activity context, ArrayList<FavoriteData> list) {
+        this.context = context;
+        this.mList = list;
+    }
+
+    interface OnItemClickListener {
+        void onItemClick(View v, int position);
+        void onDeleteClick(View v, int positon);//삭제
+    }
+
+    private OnItemClickListener mListener = null;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
+    class CustomViewHolder extends RecyclerView.ViewHolder {
+        protected TextView id;
+        protected TextView name;
+        protected TextView content;
+        protected Button deletebutton;
+
+
+        public CustomViewHolder(View view) {
+            super(view);
+            this.id = (TextView) view.findViewById(R.id.textView_list_id);
+            this.name = (TextView) view.findViewById(R.id.textView_list_name);
+            this.content = (TextView) view.findViewById(R.id.textView_list_content);
+            this.deletebutton = (Button) view.findViewById(R.id.deletebutton);
+
+            itemView.setOnClickListener (new View.OnClickListener () {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context, ""+deletebutton+"", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            deletebutton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick (View view){
+                    Toast.makeText(view.getContext() , "click" , Toast.LENGTH_SHORT).show();
+                    int position = getAdapterPosition ();
+                    if (position!=RecyclerView.NO_POSITION){
+                        if (mListener!=null){
+                            mListener.onDeleteClick(view,position);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+
+    @Override
+    public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list, null);
+        CustomViewHolder viewHolder = new CustomViewHolder(view);
+
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull CustomViewHolder viewholder, int position) {
+
+        viewholder.id.setText(mList.get(position).getMember_id());
+        viewholder.name.setText(mList.get(position).getMember_name());
+        viewholder.content.setText(mList.get(position).getMember_content());
+    }
+
+    @Override
+    public int getItemCount() {
+        return (null != mList ? mList.size() : 0);
+    }
+
+}
+
+/*public class FavoriteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     // adapter에 들어갈 list 입니다.
     private ArrayList<FavoriteData> listData = new ArrayList<FavoriteData>();
     private final int TYPE_HEADER = 0;
@@ -83,4 +169,4 @@ public class FavoriteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         else
             return TYPE_ITEM;
     }
-}
+}*/

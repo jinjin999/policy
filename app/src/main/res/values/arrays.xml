@@ -11,21 +11,24 @@
     </string-array>
 
     <string-array name = "age_array">
-        <item>유아</item>
-        <item>10대</item>
-        <item>20대</item>
-        <item>30대</item>
-        <item>40대</item>
-        <item>50대</item>
-        <item>60대</item>
-        <item>70대</item>
-        <item>80대</item>
-        <item>90대</item>
+        <item>선택안함</item>
+        <item>영유아</item>
+        <item>아동</item>
+        <item>청소년</item>
+        <item>청년</item>
+        <item>중장년</item>
+        <item>노년</item>
+        <item>임신</item>
     </string-array>
 
     <string-array name = "gender_array">
-        <item>남자</item>
-        <item>여자</item>
+        <item>선택안함</item>
+        <item>다문화·탈북민</item>
+        <item>다자녀</item>
+        <item>보훈대상자</item>
+        <item>장애인</item>
+        <item>저소득</item>
+        <item>한부모·조손</item>
     </string-array>
 
     <string-array name = "area_array">

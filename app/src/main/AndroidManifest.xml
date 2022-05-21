@@ -28,7 +28,7 @@
         <activity android:name=".Chatbot_Inquiry"></activity>
         <activity android:name=".Chatbot_Main"></activity>
         <activity android:name=".DetailActivity"></activity>
-        <activity android:name=".FavoriteActivity"></activity>
+        <activity android:name=".Favorite"></activity>
         <activity android:name=".MemberActivity"></activity>
         <activity android:name=".NonmemberActivity"></activity>
         <activity android:name=".ResetActivity"></activity>
@@ -37,6 +37,8 @@
         <activity android:name=".NonSettingActivity"></activity>
         <activity android:name=".NonMenuActivity"></activity>
         <activity android:name=".MemberUpdateActivity"></activity>
+        <activity android:name=".SearchActivity"></activity>
+
     </application>
 
 </manifest>

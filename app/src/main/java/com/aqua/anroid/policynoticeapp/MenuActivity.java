@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuActivity extends AppCompatActivity {
-    TextView meun_setting;
+    TextView meun_setting, menu_search, menu_bookmark;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +18,9 @@ public class MenuActivity extends AppCompatActivity {
         String userID = intent2.getStringExtra("유저id_setting");
 
         meun_setting = findViewById(R.id.meun_setting);
+        menu_search = findViewById(R.id.menu_search);
+        menu_bookmark = findViewById(R.id.menu_bookmark);
+
         meun_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -27,5 +30,20 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        menu_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        menu_bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuActivity.this, Favorite.class);
+                startActivity(intent);
+            }
+        });
     }
 }
