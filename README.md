@@ -7,7 +7,7 @@
 wampserver64 사용하여 phpmyadmin, mysql 접속
 
 
-dbcon.php, register.php, login.php, delete.php, main_userinfo.php, id_check.php 파일필요 (위치 : C:\wamp64\www)
+dbcon.php, register.php, login.php, delete.php, main_userinfo.php, id_check.php, modify.php 파일필요 (위치 : C:\wamp64\www)
 
 RegisterActivity - register.php, id_check.php
 
@@ -17,11 +17,12 @@ MemberActivity - main_userinfo.php
 
 SettingActivity - delete.php
 
+MemberUpdateAcivity - main_userinfo.php, modify.php
 
 회원가입 테이블 ex)
 
-id|userID|userPass|userAge|userGender|userArea|userJob
---|------|--------|-------|----------|--------|-------|
-1|aaaa|123|10대|남자|서울|무직
-2|bbbb|456|유아|여자|부산|직장인
-3|cccc|789|40대|여자|인천|학생
+id|userID|userPass|userLifearray|userTrgterIndvdl
+--|------|--------|-------|----------|
+1|aaaa|123|청년|한부모,조손
+2|bbbb|456|영유아|다자녀
+3|cccc|789|임신,출산|선택안함
