@@ -23,4 +23,7 @@ public class MainActivity extends AppCompatActivity {
         task.execute( edit_id.getText().toString(), edit_pw.getText().toString());*/
 
     }
+
+    public void onClick_resetBtn(View view) {
+    }
 }

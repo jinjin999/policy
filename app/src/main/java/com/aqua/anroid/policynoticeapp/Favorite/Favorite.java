@@ -1,4 +1,4 @@
-package com.aqua.anroid.policynoticeapp;
+package com.aqua.anroid.policynoticeapp.Favorite;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,6 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.aqua.anroid.policynoticeapp.R;
+import com.aqua.anroid.policynoticeapp.SearchActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -82,7 +85,7 @@ public class Favorite extends AppCompatActivity {
         button_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent3 = new Intent(getApplicationContext(),SearchActivity.class);
+                Intent intent3 = new Intent(getApplicationContext(), SearchActivity.class);
                 startActivity(intent3);
             }
         });

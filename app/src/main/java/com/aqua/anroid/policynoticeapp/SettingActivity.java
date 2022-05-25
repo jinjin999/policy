@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aqua.anroid.policynoticeapp.User.LoginActivity;
+import com.aqua.anroid.policynoticeapp.User.MemberUpdateActivity;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;

@@ -1,4 +1,4 @@
-package com.aqua.anroid.policynoticeapp;
+package com.aqua.anroid.policynoticeapp.Favorite;
 
 public class FavoriteData {
     /*private String title;

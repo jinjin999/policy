@@ -1,4 +1,4 @@
-package com.aqua.anroid.policynoticeapp;
+package com.aqua.anroid.policynoticeapp.User;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.aqua.anroid.policynoticeapp.R;
+import com.aqua.anroid.policynoticeapp.SplashActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         state_result = (TextView) findViewById(R.id.login_result);
         edit_id = (EditText) findViewById(R.id.login_id);
         edit_pw = (EditText) findViewById(R.id.login_pw);
+
 
 
         // 회원가입 버튼을 클릭 시 수행
@@ -212,6 +216,10 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, MemberActivity.class);
                 intent.putExtra("유저id",test_id);
                 startActivity(intent);
+
+                /*Intent intent_id = new Intent(LoginActivity.this, MemberUpdateActivity.class);
+                intent_id.putExtra("유저id_update",test_id);
+                startActivity(intent);*/
 
                 Log.d(TAG, "intent보내는값_login : " + test_id);
 

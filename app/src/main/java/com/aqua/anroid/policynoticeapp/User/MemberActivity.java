@@ -1,4 +1,4 @@
-package com.aqua.anroid.policynoticeapp;
+package com.aqua.anroid.policynoticeapp.User;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -8,22 +8,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aqua.anroid.policynoticeapp.MenuActivity;
 import com.aqua.anroid.policynoticeapp.Parser.PublicDataDetail;
 import com.aqua.anroid.policynoticeapp.Parser.PublicDataList;
 import com.aqua.anroid.policynoticeapp.Parser.PublicDataParser;
 import com.aqua.anroid.policynoticeapp.Parser.WantedDetail;
 import com.aqua.anroid.policynoticeapp.Parser.WantedList;
+import com.aqua.anroid.policynoticeapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +35,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 //import com.mobile.PolicyApp.R;
 
@@ -71,10 +69,10 @@ public class MemberActivity extends AppCompatActivity {
     String[] desireArray_items = { "선택안함", "일자리", "주거", "일상생활", "신체건강 및 보건의료", "정신건강 및 심리정서", "보호 및 돌봄·요양", "보육 및 교육", "문화 및 여가", "안전 및 권익보장",};
     String[] check_search_items = { "제목", "내용", "제목+내용"};
 
-    Spinner check_life;
-    Spinner check_trgterIndvdlArray;
-    Spinner check_desireArray;
-    Spinner check_search;
+    Spinner check_life; //생애주기 스피너 값 저장변수
+    Spinner check_trgterIndvdlArray; //가구유형 스피너 값 저장변수
+    Spinner check_desireArray; //관심주제 스피너 값 저장변수
+    Spinner check_search;   //검색유형 스피너 값 저장변수
     int line_index = 0; //개행문자 인덱스 저장 변수
 
 
@@ -83,12 +81,14 @@ public class MemberActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "버튼 클릭!!", Toast.LENGTH_SHORT).show();
         SearchDataList();
     }
+
     public void  onClick_serch_Detail(View view) //상세조회버튼
     {
         Toast.makeText(getApplicationContext(), "버튼 클릭!!", Toast.LENGTH_SHORT).show();
         SearchDateDetail();
     }
-    public void  onClick_resetBtn(View view) //초기화
+
+    public void  onClick_resetBtn(View view) //초기화 버튼
     {
         Toast.makeText(getApplicationContext(), "버튼 클릭!!", Toast.LENGTH_SHORT).show();
         input_searchWrd = findViewById(R.id.input_searchWrd);
@@ -112,8 +112,9 @@ public class MemberActivity extends AppCompatActivity {
         check_search = findViewById(R.id.check_search);
 
 
+        //생애주기 스피너 어뎁터
         ArrayAdapter<String> lifeArray_adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item,lifeArray_items);
+                        this, android.R.layout.simple_spinner_item,lifeArray_items);
         lifeArray_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         check_life.setAdapter(lifeArray_adapter);
         check_life.setSelection(0,false);
@@ -128,7 +129,7 @@ public class MemberActivity extends AppCompatActivity {
             }
         });
 
-
+        //가구유형 스피너 어뎁터
         ArrayAdapter<String> trgterIndvdlArray_adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item,trgterIndvdlArray_items);
         trgterIndvdlArray_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -144,7 +145,7 @@ public class MemberActivity extends AppCompatActivity {
             }
         });
 
-
+        //관심주제 스피너 어뎁터
         ArrayAdapter<String> desireArray_adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item,desireArray_items);
         desireArray_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -160,6 +161,7 @@ public class MemberActivity extends AppCompatActivity {
             }
         });
 
+        //검생유형 스피너 어뎁터
         ArrayAdapter<String> search_adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item,check_search_items);
         search_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -175,13 +177,19 @@ public class MemberActivity extends AppCompatActivity {
             }
         });
 
+        /*로그인 id값 받는 부분*/
         Intent intent2 = getIntent();
         String userID = intent2.getStringExtra("유저id");
 
-        Log.d(TAG, "intent결과_member : " + userID);
 
+        /*회원정보수정 페이지에 userID값 전달*/
+        Intent intent_id = new Intent(MemberActivity.this, MemberUpdateActivity.class);
+        intent_id.putExtra("유저id_update",userID);
+        startActivity(intent_id);
+
+
+        //메뉴버튼 클릭 시 메뉴화면으로 이동
         btn_menu = findViewById(R.id.menuimage);
-
         btn_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -191,6 +199,7 @@ public class MemberActivity extends AppCompatActivity {
 
             }
         });
+
         GetData task = new GetData();
         task.execute(userID);
 
@@ -400,7 +409,7 @@ public class MemberActivity extends AppCompatActivity {
                     }
 
                     if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) && publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)){     //설정한 생애주기와가구유형에 해당하는값만 출력
-                       if(publicDataArray.get(i).servNm.contains(title_search) &&  publicDataArray.get(i).servDgst.contains(detail_search)){
+                       if(publicDataArray.get(i).servNm.contains(title_search) ||  publicDataArray.get(i).servDgst.contains(detail_search)){
                             info.append(publicDataArray.get(i).servNm + "\n");
                             info.append(publicDataArray.get(i).jurMnofNm + "\n");
                             info.append(publicDataArray.get(i).lifeArray + "\n");

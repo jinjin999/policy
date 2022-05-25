@@ -7,13 +7,15 @@
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/policy_info_e"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/policy_info_e_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PolicyNoticeAndroidApp">
         <activity
-            android:name=".LoginActivity"
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,23 +23,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".User.LoginActivity"></activity>
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".User.RegisterActivity"></activity>
         <activity android:name=".Chatbot_Faq"></activity>
         <activity android:name=".Chatbot_Help"></activity>
         <activity android:name=".Chatbot_Inquiry"></activity>
         <activity android:name=".Chatbot_Main"></activity>
         <activity android:name=".DetailActivity"></activity>
-        <activity android:name=".Favorite"></activity>
-        <activity android:name=".MemberActivity"></activity>
-        <activity android:name=".NonmemberActivity"></activity>
+        <activity android:name=".Favorite.Favorite"></activity>
+        <activity android:name=".User.MemberActivity"></activity>
+        <activity android:name=".User.NonmemberActivity"></activity>
         <activity android:name=".ResetActivity"></activity>
         <activity android:name=".MenuActivity"></activity>
         <activity android:name=".SettingActivity"></activity>
         <activity android:name=".NonSettingActivity"></activity>
         <activity android:name=".NonMenuActivity"></activity>
-        <activity android:name=".MemberUpdateActivity"></activity>
+        <activity android:name=".User.MemberUpdateActivity"></activity>
         <activity android:name=".SearchActivity"></activity>
+
 
     </application>
 

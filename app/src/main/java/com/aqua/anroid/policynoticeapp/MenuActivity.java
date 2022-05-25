@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aqua.anroid.policynoticeapp.Favorite.Favorite;
+
 public class MenuActivity extends AppCompatActivity {
     TextView meun_setting, menu_search, menu_bookmark;
     @Override
