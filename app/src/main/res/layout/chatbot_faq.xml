@@ -13,7 +13,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
             android:orientation="horizontal">
 
             <ImageView
@@ -21,6 +22,7 @@
                 android:layout_width="60dp"
                 android:layout_height="80dp"
                 android:layout_margin="20dp"
+                android:layout_gravity="center"
                 android:src="@drawable/backbtn" />
 
 
@@ -28,15 +30,16 @@
                 android:id="@+id/Faq"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_marginRight="70dp"
-                android:textSize="45dp"
-                android:text="FAQ" />
+                android:gravity="center"
+                android:text="FAQ"
+                android:textSize="45dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.5"
             android:orientation="vertical">
 
             <Button
@@ -44,13 +47,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="50dp"
-                android:backgroundTint="#D7D9DA"
+                android:layout_marginTop="40dp"
                 android:layout_marginRight="30dp"
-                android:textColor="#000000"
+                android:background="@drawable/faq_edge"
+                android:text="Q 어떻게 이용하나요? \nA 검색창 검색or맞춤 설정을 통해..."
 
 
-                android:text="Q 어떻게 이용하나요? \nA 검색창 검색or맞춤 설정을 통해..." />
+                android:textColor="#000000" />
 
             <Button
                 android:id="@+id/Faq2"
@@ -59,9 +62,9 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginRight="30dp"
-                android:textColor="#000000"
-                android:backgroundTint="#D7D9DA"
-                android:text="Q 회원가입이 필요한가요? \nA 회원가입은 선택사항 입니다. 단," />
+                android:background="@drawable/faq_edge"
+                android:text="Q 회원가입이 필요한가요? \nA 회원가입은 선택사항 입니다. 단,"
+                android:textColor="#000000" />
 
             <Button
                 android:id="@+id/Faq3"
@@ -70,9 +73,20 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginRight="30dp"
-                android:textColor="#000000"
-                android:backgroundTint="#D7D9DA"
-                android:text="Q 프로필 정보 변경이 가능한가요? \nA 프로필정보 변경은 가능합니다" />
+                android:background="@drawable/faq_edge"
+                android:text="Q 프로필 정보 변경이 가능한가요? \nA 프로필정보 변경은 가능합니다"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/Faq4"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/faq_edge"
+                android:text="Q 한개 더 뭐 없나,,? \nA 흐으으으으음"
+                android:textColor="#000000" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -74,17 +74,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:gravity="center"
             android:padding="35dp">
 
             <Button
                 android:id="@+id/btnOk"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_round"
+                android:text="확인"
+                android:textColor="@color/white"
                 android:textSize="20dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:backgroundTint="#D7D9DA"
-                android:text="확인" />
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>

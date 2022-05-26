@@ -17,14 +17,6 @@ public class NonMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nonmenu);
 
-        meun_setting = findViewById(R.id.meun_setting);
-        meun_setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(NonMenuActivity.this, NonSettingActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
 

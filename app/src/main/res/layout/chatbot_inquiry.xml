@@ -17,7 +17,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
             android:orientation="horizontal">
 
             <ImageView
@@ -25,86 +26,99 @@
                 android:layout_width="60dp"
                 android:layout_height="80dp"
                 android:layout_margin="20dp"
+                android:layout_gravity="center"
                 android:src="@drawable/backbtn" />
+
             <TextView
                 android:id="@+id/inquiry"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginRight="70dp"
                 android:layout_weight="0"
                 android:gravity="center"
-                android:textSize="45dp"
-                android:layout_marginRight="70dp"
-                android:text="1:1문의" />
+                android:text="1:1문의"
+                android:textSize="45dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="15dp">
+            android:layout_height="0dp"
+            android:layout_margin="30dp"
+            android:layout_weight="2.5"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/titel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="문의제목"
                 android:textSize="20dp"
-                android:text="문의제목" />
+                android:textColor="@color/black"/>
 
             <EditText
                 android:id="@+id/titel1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#1975D2"
                 android:padding="15dp"
-                android:text="제목을 입력하세요" />
+                android:text="제목을 입력하세요"
+                android:textColor="#9e9e9e"/>
 
             <TextView
                 android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="이메일" />
+                android:textColor="@color/black"
+                android:text="이메일"
+                android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/email1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#1975D2"
                 android:padding="15dp"
-                android:text="답변 받을 이메일을 입력하세요" />
+                android:text="답변 받을 이메일을 입력하세요"
+                android:textColor="#9e9e9e"/>
 
             <TextView
                 android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="문의내용" />
+                android:textColor="@color/black"
+                android:text="문의내용"
+                android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/content1"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:padding="10dp"
+                android:layout_height="270dp"
+                android:backgroundTint="#1975D2"
                 android:gravity="top"
-                android:text="문의 내용을 입력하세요" />
+                android:padding="10dp"
+                android:text="문의 내용을 입력하세요"
+                android:textColor="#9e9e9e" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/inquirybtn"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/btn_round"
+                android:text="문의하기"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/inquirybtn"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:backgroundTint="#D7D9DA"
-            android:text="문의하기" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

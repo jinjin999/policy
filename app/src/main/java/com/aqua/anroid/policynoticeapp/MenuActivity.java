@@ -7,10 +7,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.aqua.anroid.policynoticeapp.Favorite.Favorite;
+import com.aqua.anroid.policynoticeapp.Calendar.CalendarActivity;
+import com.aqua.anroid.policynoticeapp.Favorite.FavoriteActivity;
+
 
 public class MenuActivity extends AppCompatActivity {
-    TextView meun_setting, menu_search, menu_bookmark;
+    TextView meun_setting, menu_search, menu_bookmark, menu_calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +24,8 @@ public class MenuActivity extends AppCompatActivity {
         meun_setting = findViewById(R.id.meun_setting);
         menu_search = findViewById(R.id.menu_search);
         menu_bookmark = findViewById(R.id.menu_bookmark);
+        menu_calendar = findViewById(R.id.menu_calendar);
+
 
         meun_setting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +47,16 @@ public class MenuActivity extends AppCompatActivity {
         menu_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, Favorite.class);
+                Intent intent = new Intent(MenuActivity.this, FavoriteActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        menu_calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuActivity.this, CalendarActivity.class);
                 startActivity(intent);
             }
         });

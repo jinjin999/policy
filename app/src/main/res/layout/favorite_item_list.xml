@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:orientation="horizontal">
+    android:paddingBottom="5dp">
 
 
     <LinearLayout
+        android:id="@+id/cmdArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.9"
@@ -23,17 +23,21 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="20dp"
+            android:paddingTop="22dp"
             android:paddingRight="10dp"
             android:paddingBottom="5dp">
 
             <Button
                 android:id="@+id/deletebutton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="삭제" />
+                android:background="@drawable/btn_round"
+                android:gravity="center"
+                android:text="삭제"
+                android:textColor="@color/white" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -47,25 +51,20 @@
             android:paddingBottom="5dp">
 
             <TextView
-                android:id="@+id/textView_list_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="아이디"
-                android:textSize="20dp" />
-
-            <TextView
                 android:id="@+id/textView_list_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="이름"
-                android:textSize="25dp" />
+                android:textSize="30dp" />
 
             <TextView
                 android:id="@+id/textView_list_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="내용"
-                android:textSize="15dp" />
+                android:textSize="20dp" />
         </LinearLayout>
 
 

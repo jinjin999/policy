@@ -195,7 +195,6 @@ public class LoginActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
-            //JSONArray jsonArray = new JSONArray(TAG_JSON);
 
             for(int i=0;i<jsonArray.length();i++){
 

@@ -31,7 +31,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText et_id, et_pass;
     private Spinner sp_lifearray, sp_trgterIndvdlArray;
-    private Spinner et_area, et_job;
     private Button btn_register, btn_id_check_;
     private TextView register_state_result, check_id;
     private int check_cnt=0;
@@ -47,8 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
         et_pass = findViewById(R.id.join_pw);
         sp_lifearray = findViewById(R.id.join_lifearray);
         sp_trgterIndvdlArray = findViewById(R.id.join_trgterIndvdlArray);
-        //et_area = findViewById(R.id.join_area);
-        //et_job = findViewById(R.id.join_job);
         check_id = findViewById(R.id.check_id);
         btn_id_check_= findViewById(R.id.chekc_id_btn);
         register_state_result = (TextView)findViewById(R.id.check_pass);
@@ -68,8 +65,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String userPass = et_pass.getText().toString();
                 String userLifearray = sp_lifearray.getSelectedItem().toString();
                 String userTrgterIndvdl = sp_trgterIndvdlArray.getSelectedItem().toString();
-                //String userArea = et_area.getSelectedItem().toString();
-                //String userJob = et_job.getSelectedItem().toString();
                 
 
                 InsertData task = new InsertData();

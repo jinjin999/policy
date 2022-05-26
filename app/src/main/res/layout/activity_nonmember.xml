@@ -19,17 +19,6 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/menubtn" />
 
-        <ImageButton
-            android:layout_width="150dp"
-            android:layout_height="30dp"
-            android:id="@+id/resetBtn_non"
-            android:layout_margin="5dp"
-            android:padding="10dp"
-            android:background="@android:color/transparent"
-            android:onClick="onClick_resetBtn"
-            android:scaleType="centerCrop"
-            android:layout_gravity="right"
-            android:src="@drawable/logo" />
 
 
     </LinearLayout>
@@ -51,7 +40,7 @@
             <EditText
                 android:id="@+id/input_searchWrd_non"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="11dp"
                 android:background="@null"
                 android:hint="검색어"
@@ -179,35 +168,50 @@
             android:id="@+id/buttonAPI_List_non"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/btn_round"
-            android:onClick="onClick_serch_List_non"
+            android:onClick="onClick_search_List_non"
             android:text="목록조회"
             android:textSize="16dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/buttonAPI_Detail_non"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:onClick="onClick_serch_Detail_non"
-            android:layout_weight="1"
+            android:onClick="onClick_search_Detail_non"
+            android:layout_weight="2"
             android:background="@drawable/btn_round"
             android:textStyle="bold"
             android:textSize="16dp"
             android:text="상세정보검색"
+            android:layout_marginLeft="20sp"
+            android:textColor="@color/white"
+            />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/resetBtn_non"
+            android:background="@drawable/btn_round"
+            android:onClick="onClick_resetBtn_non"
+            android:text="초기화"
+            android:textColor="@color/white"
+            android:layout_weight="0.1"
+            android:textSize="16dp"
             android:layout_marginLeft="20sp"
             />
 
     </LinearLayout>
 
     <ListView
-        android:id="@+id/listView_nonmember"
+        android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginTop="20sp"
-        android:dividerHeight="10px"
+        android:padding="20dp"
+        android:dividerHeight="15px"
         android:divider="#00000000"
         />
 

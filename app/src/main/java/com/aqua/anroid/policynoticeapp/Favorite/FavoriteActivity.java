@@ -1,6 +1,7 @@
-package com.aqua.anroid.policynoticeapp;
+package com.aqua.anroid.policynoticeapp.Favorite;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,8 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.aqua.anroid.policynoticeapp.R;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -19,7 +24,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class SearchActivity extends AppCompatActivity {
+/*즐겨찾기 클릭 시*/
+public class FavoriteActivity extends AppCompatActivity {
 
     private static String IP_ADDRESS = "10.0.2.2";
     private static String TAG = "phptest";
@@ -46,6 +52,7 @@ public class SearchActivity extends AppCompatActivity {
 
         mTextViewResult.setMovementMethod(new ScrollingMovementMethod());
 
+
         ImageButton buttonInsert1 = (ImageButton) findViewById(R.id.favorite_btn_1);
         buttonInsert1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +61,7 @@ public class SearchActivity extends AppCompatActivity {
                 String content1 = tv_content1.getText().toString();
 
                 InsertData task = new InsertData();
-                task.execute("http://" + IP_ADDRESS + "/insert.php", name1,content1);
+                task.execute("http://" + IP_ADDRESS + "/favorite.php", name1,content1);
 
             }
         });
@@ -67,7 +74,7 @@ public class SearchActivity extends AppCompatActivity {
                 String content2 = tv_content2.getText().toString();
 
                 InsertData task = new InsertData();
-                task.execute("http://" + IP_ADDRESS + "/insert.php", name2,content2);
+                task.execute("http://" + IP_ADDRESS + "/favorite.php", name2,content2);
 
             }
         });
@@ -76,19 +83,12 @@ public class SearchActivity extends AppCompatActivity {
         buttonInsert3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //int num = 0;
-                //num++;
+
                 String name3 = tv_list3.getText().toString();
                 String content3 = tv_content3.getText().toString();
 
-                // if(num%2==0) {
                 InsertData task = new InsertData();
-                task.execute("http://" + IP_ADDRESS + "/insert.php", name3, content3);
-                // }
-                // else{
-                //InsertData task = new InsertData();
-                //task.execute("http://" + IP_ADDRESS + "/delete.php", name3, content3);
-                // }
+                task.execute("http://" + IP_ADDRESS + "/favorite.php", name3, content3);
 
             }
         });
@@ -101,7 +101,7 @@ public class SearchActivity extends AppCompatActivity {
                 String content4 = tv_content4.getText().toString();
 
                 InsertData task = new InsertData();
-                task.execute("http://" + IP_ADDRESS + "/insert.php", name4,content4);
+                task.execute("http://" + IP_ADDRESS + "/favorite.php", name4,content4);
 
             }
         });
@@ -110,7 +110,7 @@ public class SearchActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
+                Intent intent = new Intent(getApplicationContext(),FavoriteActivity.class);
                 startActivity(intent);
             }
         });
@@ -124,8 +124,8 @@ public class SearchActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(SearchActivity.this,
-                    "Please Wait", null, true, true);
+            //progressDialog = ProgressDialog.show(MainActivity.this,
+            //"Please Wait", null, true, true);
         }
 
 
@@ -133,8 +133,30 @@ public class SearchActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            progressDialog.dismiss();
-            mTextViewResult.setText(result);
+            //progressDialog.dismiss();
+            //progressDialog = ProgressDialog.show(MainActivity.this,
+            //        result, null, false, false);
+            //mTextViewResult.setText(result);
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                    FavoriteActivity.this);
+
+            //alertDialogBuilder.setTitle("Title Dialog");
+            alertDialogBuilder
+                    .setMessage(result)
+                    .setCancelable(true)
+                    .setPositiveButton("확인",
+                            new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int arg1) {
+                                    // Handle Positive Button
+
+                                }
+                            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
             Log.d(TAG, "POST response  - " + result);
         }
 
@@ -205,8 +227,5 @@ public class SearchActivity extends AppCompatActivity {
 
         }
     }
-
-
-
 
 }

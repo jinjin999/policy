@@ -36,7 +36,6 @@ public class MemberUpdateActivity extends AppCompatActivity {
 
     String mJsonString;
 
-    TextView update_result;
     EditText update_pass;
     Spinner update_lifearray;
     Spinner update_trgterIndvdlArray;
@@ -57,7 +56,6 @@ public class MemberUpdateActivity extends AppCompatActivity {
         update_trgterIndvdlArray = findViewById(R.id.update_trgterIndvdlArray);
         saveBtn = findViewById(R.id.update_savebtn);
         update_user_id = findViewById(R.id.user_id);
-        //update_result = findViewById(R.id.update_result);
 
         /*아디디 출력*/
         Intent intent2 = getIntent();
@@ -142,7 +140,6 @@ public class MemberUpdateActivity extends AppCompatActivity {
 
             progressDialog.dismiss();
 
-            //update_result.setText(result);
             Log.d(TAG, "update_result "+ result);
 
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();

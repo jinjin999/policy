@@ -30,17 +30,19 @@
         <activity android:name=".Chatbot_Help"></activity>
         <activity android:name=".Chatbot_Inquiry"></activity>
         <activity android:name=".Chatbot_Main"></activity>
-        <activity android:name=".DetailActivity"></activity>
-        <activity android:name=".Favorite.Favorite"></activity>
+        <activity android:name=".Favorite.FavoriteActivity"></activity>
         <activity android:name=".User.MemberActivity"></activity>
         <activity android:name=".User.NonmemberActivity"></activity>
-        <activity android:name=".ResetActivity"></activity>
         <activity android:name=".MenuActivity"></activity>
         <activity android:name=".SettingActivity"></activity>
-        <activity android:name=".NonSettingActivity"></activity>
         <activity android:name=".NonMenuActivity"></activity>
         <activity android:name=".User.MemberUpdateActivity"></activity>
         <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".Calendar.CalendarActivity"></activity>
+        <activity android:name=".Calendar.EventEditActivity"></activity>
+
+
+
 
 
     </application>

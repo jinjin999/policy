@@ -364,7 +364,7 @@ public class MemberActivity extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.listView1);
         //  adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scrollItemList);
         // list.setAdapter(adapter);
-        adapter = new ArrayAdapter<String>(this, R.layout.memolist_type,  scrollItemList);
+        adapter = new ArrayAdapter<String>(this, R.layout.parsing_list,  scrollItemList);
         list.setAdapter(adapter);
 
 

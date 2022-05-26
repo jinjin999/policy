@@ -1,24 +1,12 @@
 package com.aqua.anroid.policynoticeapp.Favorite;
 
+
 public class FavoriteData {
-    /*private String title;
-    private String content;
-    //private int resId;
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public String getContent() {
-        return content;
-    }
-    public void setContent(String content) {
-        this.content = content;
-    }*/
-    private String member_id;
-    private String member_name;
-    private String member_content;
+    public String member_id;
+    public String member_name;
+    public String member_content;
+
+
 
 
     public String getMember_id() {
@@ -34,6 +22,7 @@ public class FavoriteData {
     }
 
 
+
     public void setMember_id(String member_id) {
         this.member_id = member_id;
     }
@@ -45,4 +34,6 @@ public class FavoriteData {
     public void setMember_content(String member_content) {
         this.member_content = member_content;
     }
+
+
 }
