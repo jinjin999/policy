@@ -2,6 +2,7 @@ package com.aqua.anroid.policynoticeapp.User;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -58,12 +59,11 @@ public class MemberUpdateActivity extends AppCompatActivity {
         update_user_id = findViewById(R.id.user_id);
 
         /*아디디 출력*/
-        Intent intent2 = getIntent();
-        String intentID = intent2.getStringExtra("유저id_update");
+        SharedPreferences sharedPreferences = getSharedPreferences("userID",MODE_PRIVATE);
+        String userID  = sharedPreferences.getString("userID","");
+        Log.d(TAG, "intent결과_update : " + userID);
 
-        Log.d(TAG, "intent결과_update : " + intentID);
-
-        update_user_id.setText(intentID);
+        update_user_id.setText(userID);
         Log.d(TAG, "update_user_id "+ update_user_id.getText().toString());
 
 
@@ -101,6 +101,9 @@ public class MemberUpdateActivity extends AppCompatActivity {
         });
 
 
+        GetData task = new GetData();
+        task.execute(update_user_id.getText().toString());
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,10 +118,6 @@ public class MemberUpdateActivity extends AppCompatActivity {
 
             }
         });
-
-        GetData task = new GetData();
-        task.execute(update_user_id.getText().toString());
-
 
     }
 
@@ -337,19 +336,19 @@ public class MemberUpdateActivity extends AppCompatActivity {
                 JSONObject item = jsonArray.getJSONObject(i);
                 Log.d(TAG, "JSONObject : "+ item);
 
-                String userLifearray = item.getString("userLifearray");
-                String userTrgterIndvdl = item.getString("userTrgterIndvdl");
+                String userLifearray = item.getString("userLifearray"); //디비에서 가져온 userLifearray를 대입
+                String userTrgterIndvdl = item.getString("userTrgterIndvdl"); //디비에서 가져온 userTrgterIndvdl를 대입
 
 
                 for(int q=0; q<lifeArray_items.length ; q++){
-                    if(lifeArray_items[q].equals(userLifearray)) {
-                        update_lifearray.setSelection(q);
+                    if(lifeArray_items[q].equals(userLifearray)) { //생애주기 배열의 인덱스 값이 userLifearray와 같다면
+                        update_lifearray.setSelection(q);   //생애주기의 초기 스피너값을 해당 인덱스 아이템으로 설정
                     }
                 }
 
                 for(int t=0; t<trgterIndvdlArray_items.length ; t++){
-                    if(trgterIndvdlArray_items[t].equals(userTrgterIndvdl)) {
-                        update_trgterIndvdlArray.setSelection(t);
+                    if(trgterIndvdlArray_items[t].equals(userTrgterIndvdl)) { //가구유형 배열의 인덱스 값이 userLifearray와 같다면
+                        update_trgterIndvdlArray.setSelection(t); //가구유형의 초기 스피너값을 해당 인덱스 아이템으로 설정
                     }
                 }
             }

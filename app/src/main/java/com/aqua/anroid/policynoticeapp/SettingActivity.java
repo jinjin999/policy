@@ -2,6 +2,7 @@ package com.aqua.anroid.policynoticeapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,8 +33,8 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        Intent intent2 = getIntent();
-        String userID = intent2.getStringExtra("유저id_setting");
+        SharedPreferences sharedPreferences = getSharedPreferences("userID",MODE_PRIVATE);
+        String userID  = sharedPreferences.getString("userID","");
 
         setting_signout = findViewById(R.id.setting_signout);
         memberInfo_update = findViewById(R.id.setting_edituser);

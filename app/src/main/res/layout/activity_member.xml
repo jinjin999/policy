@@ -19,7 +19,19 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/menubtn" />
 
+        <Button
+            android:id="@+id/add_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="즐겨찾기"
+            android:background="@drawable/btn_round"
+            android:textColor="@color/white"
+            android:layout_marginLeft="20sp"
+            android:onClick="onClick_favorite"
 
+            >
+
+        </Button>
 
     </LinearLayout>
 

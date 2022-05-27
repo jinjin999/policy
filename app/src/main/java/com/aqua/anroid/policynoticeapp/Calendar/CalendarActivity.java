@@ -33,7 +33,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_calendar);
         initWidgets(); //id 통해 목록 찾음
         //loadFromDBToMemory();
         CalendarUtils.selectedDate = LocalDate.now(); //현재 날짜

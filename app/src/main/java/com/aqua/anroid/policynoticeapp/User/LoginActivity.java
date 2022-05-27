@@ -2,6 +2,7 @@ package com.aqua.anroid.policynoticeapp.User;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aqua.anroid.policynoticeapp.Favorite.FavoriteActivity;
 import com.aqua.anroid.policynoticeapp.R;
 import com.aqua.anroid.policynoticeapp.SplashActivity;
 
@@ -40,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView state_result;
     String mJsonString;
 
-
+    SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -200,25 +202,29 @@ public class LoginActivity extends AppCompatActivity {
 
                 JSONObject item = jsonArray.getJSONObject(i);
 
-                String id = item.getString(TAG_ID);
+                //String id = item.getString(TAG_ID);
                 String userID = item.getString(TAG_NAME);
                 String userPass = item.getString(TAG_COUNTRY);
 
                 HashMap<String,String> hashMap = new HashMap<>();
 
-                hashMap.put(TAG_ID, id);
+                //hashMap.put(TAG_ID, id);
                 hashMap.put(TAG_NAME, userID);
                 hashMap.put(TAG_COUNTRY, userPass);
 
+                Log.d(TAG, "hashMap : " + hashMap.toString());
+
+
                 String test_id = edit_id.getText().toString();
 
+                preferences = getSharedPreferences("userID", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("userID",test_id);
+                editor.commit();
+
                 Intent intent = new Intent(LoginActivity.this, MemberActivity.class);
-                intent.putExtra("유저id",test_id);
                 startActivity(intent);
 
-                /*Intent intent_id = new Intent(LoginActivity.this, MemberUpdateActivity.class);
-                intent_id.putExtra("유저id_update",test_id);
-                startActivity(intent);*/
 
                 Log.d(TAG, "intent보내는값_login : " + test_id);
 

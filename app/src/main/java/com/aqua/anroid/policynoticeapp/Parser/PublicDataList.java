@@ -44,4 +44,21 @@ public class PublicDataList {
         servID = "";
     }
 
+    public String getServID() {
+        return servID;
+    }
+
+    public String getServDgst() {
+        return servDgst;
+    }
+
+    public void setServID(String member_id) {
+        this.servID = servID;
+    }
+
+    public void setServDgst(String member_name) {
+        this.servDgst = servDgst;
+    }
+
+
 }

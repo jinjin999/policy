@@ -1,7 +1,9 @@
 package com.aqua.anroid.policynoticeapp.User;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,10 +14,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aqua.anroid.policynoticeapp.Favorite.FavoriteActivity;
 import com.aqua.anroid.policynoticeapp.MenuActivity;
 import com.aqua.anroid.policynoticeapp.Parser.PublicDataDetail;
 import com.aqua.anroid.policynoticeapp.Parser.PublicDataList;
@@ -75,6 +80,9 @@ public class MemberActivity extends AppCompatActivity {
     Spinner check_search;   //검색유형 스피너 값 저장변수
     int line_index = 0; //개행문자 인덱스 저장 변수
 
+    String item_name;
+    String item_content;
+
 
     public void onClick_serch_List(View view) //목록조회버튼
     {
@@ -98,6 +106,13 @@ public class MemberActivity extends AppCompatActivity {
         check_trgterIndvdlArray.setSelection(0);
         check_desireArray.setSelection(0);
         adapter.clear();
+    }
+
+    public void  onClick_favorite(View view) //상세조회버튼
+    {
+        Toast.makeText(getApplicationContext(), "즐겨찾기 추가!!", Toast.LENGTH_SHORT).show();
+        //SearchDateDetail();
+        FavoriteData();
     }
 
 
@@ -178,14 +193,8 @@ public class MemberActivity extends AppCompatActivity {
         });
 
         /*로그인 id값 받는 부분*/
-        Intent intent2 = getIntent();
-        String userID = intent2.getStringExtra("유저id");
-
-
-        /*회원정보수정 페이지에 userID값 전달*/
-        Intent intent_id = new Intent(MemberActivity.this, MemberUpdateActivity.class);
-        intent_id.putExtra("유저id_update",userID);
-        startActivity(intent_id);
+        SharedPreferences sharedPreferences = getSharedPreferences("userID",MODE_PRIVATE);
+        String userID  = sharedPreferences.getString("userID","");
 
 
         //메뉴버튼 클릭 시 메뉴화면으로 이동
@@ -340,6 +349,7 @@ public class MemberActivity extends AppCompatActivity {
     }
 
 
+
     void SearchDateDetail(){
         new Thread(){
             public  void run(){
@@ -362,26 +372,21 @@ public class MemberActivity extends AppCompatActivity {
     // 리스트뷰초기화
     void InitListView() {
         ListView list = (ListView) findViewById(R.id.listView1);
-        //  adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scrollItemList);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scrollItemList);
         // list.setAdapter(adapter);
-        adapter = new ArrayAdapter<String>(this, R.layout.parsing_list,  scrollItemList);
+        //adapter = new ArrayAdapter<String>(this, R.layout.parsing_list, R.id.TxtMemoListType, scrollItemList);
+
         list.setAdapter(adapter);
-
-
 
         // 리스트뷰 아이템 클릭
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String text =scrollServID.get(position).toString();
-//                int index = text.lastIndexOf("WLF");
-//                serachServID = text.substring(index);
                 serachServID = scrollServID.get(position);
                 Toast.makeText(getApplicationContext(), "servID : " + serachServID  + " / pos : " + position, Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 
     //스크롤뷰해당하는아이템에 인덱스 번호가 포지션변수에 들어옴//서비스아이디에 해당포지션에 해당하는 서비스아이디대입
     // 리스트 뷰에 목록 조회 데이터 출력
@@ -419,6 +424,7 @@ public class MemberActivity extends AppCompatActivity {
                             scrollServID.add((publicDataArray.get(i).servID));
                         }
                     }
+
                     if( info.toString().isEmpty()==false) {
                         scrollItemList.add((i+1) + " : " + info.toString()); }
                 }
@@ -474,6 +480,58 @@ public class MemberActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    void FavoriteData()
+    {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                StringBuilder info = new StringBuilder();
+
+                for(int k =0 ;k<publicDataArray.size();k++){
+                    if(publicDataArray.get(k).servID.equals(serachServID)) {
+                        info.append(publicDataArray.get(k).servNm + "\n");
+                        info.append(publicDataArray.get(k).jurMnofNm + "\n");
+                        info.append(publicDataArray.get(k).lifeArray + "\n");
+                        info.append(publicDataArray.get(k).trgterIndvdlArray + "\n");
+                        info.append(publicDataArray.get(k).servDgst + "\n");
+                        info.append(publicDataArray.get(k).servDtlLink + "\n");
+                        //scrollServID.add((publicDataArray.get(i).servID));
+                        Log.d("아이템",info.toString());
+
+                        item_name = publicDataArray.get(k).servNm;
+                        item_content = publicDataArray.get(k).servDgst;
+
+                        Log.d("아이템 이름",item_name);
+                        Log.d("아이템 내용",item_content);
+
+
+
+
+                    }
+                }
+
+                adapter.notifyDataSetChanged(); //스크롤갱신(
+            }
+        });
+
+        Intent intent = getIntent();
+        String userID = intent.getStringExtra("유저id");
+
+//        Intent intent2 = new Intent(this,FavoriteActivity.class);
+//        intent2.putExtra("유저ID_TO_FAVO",userID);
+//
+//        Log.d("유저ID_TO_FAVO",userID);
+
+        FavoriteInsertData task = new FavoriteInsertData();
+        task.execute("http://" + IP_ADDRESS + "/favorite.php", userID, item_name, item_content);
+
+        /*Intent intent = new Intent(MemberActivity.this, FavoriteActivity.class);
+        intent.putExtra("즐찾추가",info.toString());
+        startActivity(intent);
+        //scrollItemList.add(" : " + info.toString());
+        Log.d("즐찾선택",info.toString());*/
     }
 
 
@@ -604,4 +662,117 @@ public class MemberActivity extends AppCompatActivity {
 
     }
 
+    class FavoriteInsertData extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            //progressDialog = ProgressDialog.show(MainActivity.this,
+            //"Please Wait", null, true, true);
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            Log.d("즐찾결과",result);
+
+            //progressDialog.dismiss();
+            //progressDialog = ProgressDialog.show(MainActivity.this,
+            //        result, null, false, false);
+            //mTextViewResult.setText(result);
+
+//            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MemberActivity.this);
+//
+//            //alertDialogBuilder.setTitle("Title Dialog");
+//            alertDialogBuilder
+//                    .setMessage(result)
+//                    .setCancelable(true)
+//                    .setPositiveButton("확인",
+//                            new DialogInterface.OnClickListener() {
+//
+//                                public void onClick(DialogInterface dialog, int arg1) {
+//                                    // Handle Positive Button
+//
+//                                }
+//                            });
+//
+//            AlertDialog alertDialog = alertDialogBuilder.create();
+//            alertDialog.show();
+
+            Log.d(TAG, "POST response  - " + result);
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String userID = (String)params[1];
+            String item_name = (String)params[2];
+            String item_content = (String)params[3];
+
+            String serverURL = (String)params[0];
+            String postParameters = "userID=" + userID + "& item_name=" + item_name + "& item_content=" + item_content;
+            Log.d("즐찾디비",postParameters);
+
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "POST response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+
+                bufferedReader.close();
+
+
+                return sb.toString();
+
+
+            } catch (Exception e) {
+
+                Log.d(TAG, "InsertData: Error ", e);
+
+                return new String("Error: " + e.getMessage());
+            }
+
+        }
+    }
 }

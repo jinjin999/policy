@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 
 
+import com.aqua.anroid.policynoticeapp.Parser.PublicDataList;
 import com.aqua.anroid.policynoticeapp.R;
 
 import java.io.BufferedReader;
@@ -29,12 +30,14 @@ import java.util.ArrayList;
 public class FavoriteAdapter extends BaseAdapter {
 
     private Context context;
-    private ArrayList<FavoriteData> favoriteDatalist; //Adapter에 추가된 데이터를 저장하기 위한 ArrayList
+    //private ArrayList<FavoriteData> favoriteDatalist; //Adapter에 추가된 데이터를 저장하기 위한 ArrayList
+    private ArrayList<PublicDataList> publicDataLists; //목록조회 데이터
+
     private static String IP_ADDRESS = "10.0.2.2";
     private Activity activity;
-    public FavoriteAdapter(Context context, ArrayList<FavoriteData> favoriteDatalist, Activity activity) {
+    public FavoriteAdapter(Context context, ArrayList<PublicDataList> publicDataLists, Activity activity) {
         this.context = context;
-        this.favoriteDatalist = favoriteDatalist;
+        this.publicDataLists = publicDataLists;
         //다이얼로그 때문에 activity 선언
         this.activity=activity;
     }
@@ -42,7 +45,7 @@ public class FavoriteAdapter extends BaseAdapter {
     //Adapter에 사용되는 데이터의 개수를 리턴
     @Override
     public int getCount() {
-        return favoriteDatalist.size();
+        return publicDataLists.size();
     }
 
     //뷰홀더 추가
@@ -81,8 +84,8 @@ public class FavoriteAdapter extends BaseAdapter {
         }
 
         //Holder 객체 내의 뷰를 세팅
-        holder.textview_list_name.setText(favoriteDatalist.get(i).getMember_name());
-        holder.textview_list_content.setText(favoriteDatalist.get(i).getMember_content());
+        holder.textview_list_name.setText(publicDataLists.get(i).getServID());
+        holder.textview_list_content.setText(publicDataLists.get(i).getServDgst());
 
 
         /*성공한거
@@ -112,7 +115,7 @@ public class FavoriteAdapter extends BaseAdapter {
                 task.execute("http://" + IP_ADDRESS + "/favorite_delete.php", holder.textview_list_name.getText().toString());
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
                 alertDialogBuilder
-                        .setMessage("'"+favoriteDatalist.get(i).getMember_name()+"'"+" 삭제 완료")
+                        .setMessage("'"+publicDataLists.get(i).getServID()+"'"+" 삭제 완료")
                         .setCancelable(true)
                         .setPositiveButton("확인",
                                 new DialogInterface.OnClickListener() {
@@ -134,7 +137,7 @@ public class FavoriteAdapter extends BaseAdapter {
     //지정한 위치(i)에 있는 데이터 리턴턴
     @Override
     public Object getItem(int i) {
-        return favoriteDatalist.get(i);
+        return publicDataLists.get(i);
     }
 
 

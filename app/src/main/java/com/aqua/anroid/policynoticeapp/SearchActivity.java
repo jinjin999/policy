@@ -34,7 +34,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
 
-        tv_list1 = findViewById(R.id.favorite_list_1);
+       /* tv_list1 = findViewById(R.id.favorite_list_1);
         tv_content1 = findViewById(R.id.favorite_list_content1);
         tv_list2 = findViewById(R.id.favorite_list_2);
         tv_content2 = findViewById(R.id.favorite_list_content2);
@@ -42,11 +42,11 @@ public class SearchActivity extends AppCompatActivity {
         tv_content3 = findViewById(R.id.favorite_list_content3);
         tv_list4 = findViewById(R.id.favorite_list_4);
         tv_content4 = findViewById(R.id.favorite_list_content4);
-        mTextViewResult = (TextView)findViewById(R.id.textView_main_result);
+        mTextViewResult = (TextView)findViewById(R.id.textView_main_result);*/
 
         mTextViewResult.setMovementMethod(new ScrollingMovementMethod());
 
-        ImageButton buttonInsert1 = (ImageButton) findViewById(R.id.favorite_btn_1);
+        /*ImageButton buttonInsert1 = (ImageButton) findViewById(R.id.favorite_btn_1);
         buttonInsert1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +113,7 @@ public class SearchActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
     }
 

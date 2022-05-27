@@ -13,4 +13,6 @@ public class WantedList {
     public String obstAbtArray      = "";       //장애정도
     public String trgterIndvdlArray = "";       //★ 가구유형
     public String desireArray       = "";       //★ 사업목적
+    //public String servID       = "";       //★ 서비스아이디
+
 }

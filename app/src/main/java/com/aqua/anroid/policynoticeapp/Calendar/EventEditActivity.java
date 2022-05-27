@@ -106,7 +106,7 @@ public class EventEditActivity extends AppCompatActivity {
             // db 업데이트 하기
             // ...
         }
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, CalendarActivity.class));
 
     }
 
@@ -117,7 +117,7 @@ public class EventEditActivity extends AppCompatActivity {
         //db 설정
         //db 업데이트
 
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, CalendarActivity.class));
     }
 
     //날짜 선택

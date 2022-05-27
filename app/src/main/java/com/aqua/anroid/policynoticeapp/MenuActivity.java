@@ -18,8 +18,6 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        Intent intent2 = getIntent();
-        String userID = intent2.getStringExtra("유저id_setting");
 
         meun_setting = findViewById(R.id.meun_setting);
         menu_search = findViewById(R.id.menu_search);
@@ -31,7 +29,6 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MenuActivity.this, SettingActivity.class);
-                intent.putExtra("유저id_setting",userID);
                 startActivity(intent);
             }
         });

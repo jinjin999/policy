@@ -39,8 +39,10 @@
         <activity android:name=".User.MemberUpdateActivity"></activity>
         <activity android:name=".SearchActivity"></activity>
         <activity android:name=".Calendar.CalendarActivity"></activity>
-        <activity android:name=".Calendar.EventEditActivity"></activity>
-
+        <activity
+            android:name=".Calendar.EventEditActivity"
+            android:exported="true"
+            android:theme="@style/MaterialCustomRoot" />
 
 
 
