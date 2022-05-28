@@ -3,59 +3,44 @@ package com.aqua.anroid.policynoticeapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.aqua.anroid.policynoticeapp.Calendar.CalendarActivity;
 import com.aqua.anroid.policynoticeapp.Favorite.FavoriteActivity;
+import com.aqua.anroid.policynoticeapp.User.MemberActivity;
 
 
 public class MenuActivity extends AppCompatActivity {
-    TextView meun_setting, menu_search, menu_bookmark, menu_calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+    }
 
-        meun_setting = findViewById(R.id.meun_setting);
-        menu_search = findViewById(R.id.menu_search);
-        menu_bookmark = findViewById(R.id.menu_bookmark);
-        menu_calendar = findViewById(R.id.menu_calendar);
+    public void menu_search(View view){
+        Intent intent = new Intent(MenuActivity.this, MemberActivity.class);
+        startActivity(intent);
+    }
 
+    public void menu_favorite(View view){
+        Intent intent = new Intent(MenuActivity.this, FavoriteActivity.class);
+        startActivity(intent);
+    }
 
-        meun_setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, SettingActivity.class);
-                startActivity(intent);
-            }
-        });
+    public void menu_calendar(View view){
+        Intent intent = new Intent(MenuActivity.this, CalendarActivity.class);
+        startActivity(intent);
+    }
 
-        menu_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
+    public void menu_chatbot(View view){
+        Intent intent = new Intent(MenuActivity.this, Chatbot_Main.class);
+        startActivity(intent);
+    }
 
-        menu_bookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, FavoriteActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        menu_calendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, CalendarActivity.class);
-                startActivity(intent);
-            }
-        });
+    public void menu_setting(View view){
+        Intent intent = new Intent(MenuActivity.this, SettingActivity.class);
+        startActivity(intent);
     }
 }

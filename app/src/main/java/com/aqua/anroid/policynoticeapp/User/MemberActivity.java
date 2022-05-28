@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.aqua.anroid.policynoticeapp.Favorite.FavoriteActivity;
+import com.aqua.anroid.policynoticeapp.Favorite.FavoriteData;
 import com.aqua.anroid.policynoticeapp.MenuActivity;
 import com.aqua.anroid.policynoticeapp.Parser.PublicDataDetail;
 import com.aqua.anroid.policynoticeapp.Parser.PublicDataList;
@@ -198,7 +199,7 @@ public class MemberActivity extends AppCompatActivity {
 
 
         //메뉴버튼 클릭 시 메뉴화면으로 이동
-        btn_menu = findViewById(R.id.menuimage);
+        btn_menu = findViewById(R.id.menubtn);
         btn_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -228,20 +229,25 @@ public class MemberActivity extends AppCompatActivity {
                     // 검색에 필요한 입력 데이터
                     WantedList wantedList = new WantedList();
                     wantedList.searchWrd = input_searchWrd.getText().toString();        // 키워드
-                    Log.d(TAG, "검색어 " + wantedList.searchWrd);
 
                     //title_search = wantedList.searchWrd;
                     if(check_search.getSelectedItem().equals("제목")){
                         title_search = wantedList.searchWrd;
                         detail_search = null;
+                        Log.d(TAG, "검색어_제목 " + title_search);
+
                     }
                     else if(check_search.getSelectedItem().equals("내용")){
                         detail_search = wantedList.searchWrd;
                         title_search=null;
+                        Log.d(TAG, "검색어_내용 " + detail_search);
+
                     }
                     else if(check_search.getSelectedItem().equals("제목+내용")){
                         title_search = wantedList.searchWrd;
                         detail_search = wantedList.searchWrd;
+                        Log.d(TAG, "검색어_제목+내용 " + title_search + "," + detail_search);
+
                     }
 
 
@@ -403,18 +409,55 @@ public class MemberActivity extends AppCompatActivity {
                     if( lifeArrayText=="선택안함") {
                         lifeArrayText = "";
                     }
-                    if(trgterIndvdlArrayText=="선택안함"){
-                        trgterIndvdlArrayText = "";
-                    }
                     if(title_search==null){
                         title_search="";
                     }
                     if(detail_search==null){
                         detail_search="";
                     }
+                    if(trgterIndvdlArrayText=="선택안함"){
+                        trgterIndvdlArrayText = "";
+                    }
 
-                    if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) && publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)){     //설정한 생애주기와가구유형에 해당하는값만 출력
-                       if(publicDataArray.get(i).servNm.contains(title_search) ||  publicDataArray.get(i).servDgst.contains(detail_search)){
+                    if(detail_search.equals("")) {
+                        if (publicDataArray.get(i).servNm.contains(title_search)) {
+                            if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) && publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)) {     //설정한 생애주기와가구유형에 해당하는값만 출력
+                                Log.d(TAG, "검색결과_제목 " + publicDataArray.get(i).servNm.contains(title_search));
+                                Log.d(TAG, "검색결과_내용 " + publicDataArray.get(i).servNm.contains(detail_search));
+
+                                info.append(publicDataArray.get(i).servNm + "\n");
+                                info.append(publicDataArray.get(i).jurMnofNm + "\n");
+                                info.append(publicDataArray.get(i).lifeArray + "\n");
+                                info.append(publicDataArray.get(i).trgterIndvdlArray + "\n");
+                                info.append(publicDataArray.get(i).servDgst + "\n");
+                                info.append(publicDataArray.get(i).servDtlLink + "\n");
+                                scrollServID.add((publicDataArray.get(i).servID));
+                            }
+                        }
+                    }
+
+                    else if(title_search.equals("")) {
+                        if (publicDataArray.get(i).servNm.contains(title_search) || publicDataArray.get(i).servDgst.contains(detail_search)) {
+                            if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) && publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)) {     //설정한 생애주기와가구유형에 해당하는값만 출력
+                                Log.d(TAG, "검색결과_제목 " + publicDataArray.get(i).servNm.contains(title_search));
+                                Log.d(TAG, "검색결과_내용 " + publicDataArray.get(i).servNm.contains(detail_search));
+
+                                info.append(publicDataArray.get(i).servNm + "\n");
+                                info.append(publicDataArray.get(i).jurMnofNm + "\n");
+                                info.append(publicDataArray.get(i).lifeArray + "\n");
+                                info.append(publicDataArray.get(i).trgterIndvdlArray + "\n");
+                                info.append(publicDataArray.get(i).servDgst + "\n");
+                                info.append(publicDataArray.get(i).servDtlLink + "\n");
+                                scrollServID.add((publicDataArray.get(i).servID));
+                            }
+                        }
+                    }
+                    else
+                    if (publicDataArray.get(i).servDgst.contains(detail_search) ) {
+                        if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) && publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)) {     //설정한 생애주기와가구유형에 해당하는값만 출력
+                            Log.d(TAG, "검색결과_제목 " + publicDataArray.get(i).servNm.contains(title_search));
+                            Log.d(TAG, "검색결과_내용 " + publicDataArray.get(i).servNm.contains(detail_search));
+
                             info.append(publicDataArray.get(i).servNm + "\n");
                             info.append(publicDataArray.get(i).jurMnofNm + "\n");
                             info.append(publicDataArray.get(i).lifeArray + "\n");
@@ -516,8 +559,8 @@ public class MemberActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-        String userID = intent.getStringExtra("유저id");
+        SharedPreferences sharedPreferences = getSharedPreferences("userID",MODE_PRIVATE);
+        String userID  = sharedPreferences.getString("userID","");
 
 //        Intent intent2 = new Intent(this,FavoriteActivity.class);
 //        intent2.putExtra("유저ID_TO_FAVO",userID);
@@ -774,5 +817,6 @@ public class MemberActivity extends AppCompatActivity {
             }
 
         }
+
     }
 }

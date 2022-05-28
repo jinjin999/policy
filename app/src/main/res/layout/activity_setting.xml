@@ -14,14 +14,16 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:onClick="info_update">
 
             <ImageView
                 android:id="@+id/menubtn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="20dp"
-                android:src="@drawable/menubtn" />
+                android:src="@drawable/menubtn"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,7 +64,8 @@
                 android:elevation="10dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:onClick="info_update">
 
 
                 <LinearLayout
@@ -148,7 +151,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:onClick="logout">
 
                     <ImageView
                         android:id="@+id/logout_image"
@@ -182,7 +186,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:onClick="signout">
 
                     <ImageView
                         android:id="@+id/signout_image"

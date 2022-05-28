@@ -13,127 +13,39 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="50sp"
-                android:layout_height="50sp"
-                android:layout_marginTop="7sp"
-                android:adjustViewBounds="true"
-                android:background="#00FFFFFF"
-                android:scaleType="fitCenter"
-                android:src="@drawable/menubtn"
-                tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageView
+            android:id="@+id/menubtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="20dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/menubtn" />
 
             <TextView
                 android:id="@+id/search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="70sp"
+                android:layout_marginStart="50sp"
                 android:text="즐겨찾기"
                 android:textSize="45sp" />
         </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20sp"
         tools:context=".MainActivity">
 
 
-        <!--        <ListView-->
-        <!--            android:id="@+id/listView_favorite_list"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:layout_marginTop="70dp" />-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/empty_view"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_centerInParent="true"-->
-        <!--            android:textAppearance="?android:textAppearanceMedium"-->
-
-        <!--            />-->
-        <LinearLayout
+        <ListView
+            android:id="@+id/listView_favorite_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="170dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/empty_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:hint="즐겨찾기목록" />
-
-            <TextView
-                android:id="@+id/empty_view1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:hint="즐겨찾기목록1" />
-
-        </LinearLayout>
+             />
 
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/editText_main_searchKeyword1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:background="@null"
-                android:focusable="false" />
-
-            <EditText
-                android:id="@+id/editText_main_searchKeyword2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:background="@null"
-                android:focusable="false" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/button_main_all"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/favorite_edge"
-                    android:text="전체보기"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/button_main"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/favorite_edge"
-                    android:text="돌아가기"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
     <!--    <LinearLayout-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->

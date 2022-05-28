@@ -165,31 +165,16 @@ public class NonmemberActivity extends AppCompatActivity {
             }
         });
 
-        /*로그인 id값 받는 부분*/
-        Intent intent2 = getIntent();
-        String userID = intent2.getStringExtra("유저id");
-
-
-        /*회원정보수정 페이지에 userID값 전달*/
-        /*Intent intent_id = new Intent(MemberActivity.this, MemberUpdateActivity.class);
-        intent_id.putExtra("유저id_update",userID);
-        startActivity(intent_id);*/
-
-
         //메뉴버튼 클릭 시 메뉴화면으로 이동
-        btn_menu = findViewById(R.id.menuimage_non);
+        btn_menu = findViewById(R.id.menubtn);
         btn_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(NonmemberActivity.this, MenuActivity.class);
-                intent.putExtra("유저id_setting",userID);
                 startActivity(intent);
 
             }
         });
-
-//        GetData task = new GetData();
-//        task.execute(userID);
 
         // 리스트뷰 초기화
         InitListView();
@@ -350,9 +335,11 @@ public class NonmemberActivity extends AppCompatActivity {
     // 리스트뷰초기화
     void InitListView() {
         ListView list = (ListView) findViewById(R.id.listView1);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scrollItemList);
+
         //  adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scrollItemList);
         // list.setAdapter(adapter);
-        adapter = new ArrayAdapter<String>(this, R.layout.parsing_list,  scrollItemList);
+        //adapter = new ArrayAdapter<String>(this, R.layout.parsing_list,  scrollItemList);
         list.setAdapter(adapter);
 
 
@@ -361,9 +348,6 @@ public class NonmemberActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String text =scrollServID.get(position).toString();
-//                int index = text.lastIndexOf("WLF");
-//                serachServID = text.substring(index);
                 serachServID = scrollServID.get(position);
                 Toast.makeText(getApplicationContext(), "servID : " + serachServID  + " / pos : " + position, Toast.LENGTH_SHORT).show();
             }
@@ -386,18 +370,49 @@ public class NonmemberActivity extends AppCompatActivity {
                     if( lifeArrayText=="선택안함") {
                         lifeArrayText = "";
                     }
-                    if(trgterIndvdlArrayText=="선택안함"){
-                        trgterIndvdlArrayText = "";
-                    }
                     if(title_search==null){
                         title_search="";
                     }
                     if(detail_search==null){
                         detail_search="";
                     }
+                    if(trgterIndvdlArrayText=="선택안함"){
+                        trgterIndvdlArrayText = "";
+                    }
 
-                    if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) && publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)){     //설정한 생애주기와가구유형에 해당하는값만 출력
-                        if(publicDataArray.get(i).servNm.contains(title_search) ||  publicDataArray.get(i).servDgst.contains(detail_search)){
+                    if(detail_search.equals("")) {
+                        if (publicDataArray.get(i).servNm.contains(title_search)) {
+                            if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) && publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)) {     //설정한 생애주기와가구유형에 해당하는값만 출력
+
+                                info.append(publicDataArray.get(i).servNm + "\n");
+                                info.append(publicDataArray.get(i).jurMnofNm + "\n");
+                                info.append(publicDataArray.get(i).lifeArray + "\n");
+                                info.append(publicDataArray.get(i).trgterIndvdlArray + "\n");
+                                info.append(publicDataArray.get(i).servDgst + "\n");
+                                info.append(publicDataArray.get(i).servDtlLink + "\n");
+                                scrollServID.add((publicDataArray.get(i).servID));
+                            }
+                        }
+                    }
+
+                    else if(title_search.equals("")) {
+                        if (publicDataArray.get(i).servNm.contains(title_search) || publicDataArray.get(i).servDgst.contains(detail_search)) {
+                            if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) && publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)) {     //설정한 생애주기와가구유형에 해당하는값만 출력
+
+                                info.append(publicDataArray.get(i).servNm + "\n");
+                                info.append(publicDataArray.get(i).jurMnofNm + "\n");
+                                info.append(publicDataArray.get(i).lifeArray + "\n");
+                                info.append(publicDataArray.get(i).trgterIndvdlArray + "\n");
+                                info.append(publicDataArray.get(i).servDgst + "\n");
+                                info.append(publicDataArray.get(i).servDtlLink + "\n");
+                                scrollServID.add((publicDataArray.get(i).servID));
+                            }
+                        }
+                    }
+                    else
+                    if (publicDataArray.get(i).servDgst.contains(detail_search) ) {
+                        if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) && publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)) {     //설정한 생애주기와가구유형에 해당하는값만 출력
+
                             info.append(publicDataArray.get(i).servNm + "\n");
                             info.append(publicDataArray.get(i).jurMnofNm + "\n");
                             info.append(publicDataArray.get(i).lifeArray + "\n");
@@ -407,6 +422,7 @@ public class NonmemberActivity extends AppCompatActivity {
                             scrollServID.add((publicDataArray.get(i).servID));
                         }
                     }
+
                     if( info.toString().isEmpty()==false) {
                         scrollItemList.add((i+1) + " : " + info.toString()); }
                 }
@@ -463,134 +479,6 @@ public class NonmemberActivity extends AppCompatActivity {
             }
         });
     }
-
-
-//    private class GetData extends AsyncTask<String, Void, String> {
-//
-//        ProgressDialog progressDialog;
-//        String errorString = null;
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//
-//            progressDialog = ProgressDialog.show(MemberActivity.this,
-//                    "Please Wait", null, true, true);
-//        }
-//
-//
-//        @Override
-//        protected void onPostExecute(String result) {
-//            super.onPostExecute(result);
-//
-//            progressDialog.dismiss();
-//            Log.d(TAG, "response - " + result);
-//
-//            if (result != null){
-//                mJsonString = result;
-//                showResult();
-//            }
-//        }
-//
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//
-//            String searchKeyword1 = params[0];
-//
-//            String serverURL = "http://10.0.2.2/main_userinfo.php";
-//            String postParameters = "userID=" + searchKeyword1;
-//            try {
-//
-//                URL url = new URL(serverURL);
-//                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-//
-//
-//                httpURLConnection.setReadTimeout(5000);
-//                httpURLConnection.setConnectTimeout(5000);
-//                httpURLConnection.setRequestMethod("POST");
-//                httpURLConnection.setDoInput(true);
-//                httpURLConnection.connect();
-//
-//
-//                OutputStream outputStream = httpURLConnection.getOutputStream();
-//                outputStream.write(postParameters.getBytes("UTF-8"));
-//                outputStream.flush();
-//                outputStream.close();
-//
-//
-//                int responseStatusCode = httpURLConnection.getResponseCode();
-//                Log.d(TAG, "response code - " + responseStatusCode);
-//
-//                InputStream inputStream;
-//                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
-//                    inputStream = httpURLConnection.getInputStream();
-//                }
-//                else{
-//                    inputStream = httpURLConnection.getErrorStream();
-//                }
-//
-//
-//                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-//                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//
-//                StringBuilder sb = new StringBuilder();
-//                String line;
-//
-//                while((line = bufferedReader.readLine()) != null){
-//                    sb.append(line);
-//                }
-//
-//                bufferedReader.close();
-//
-//                return sb.toString().trim();
-//
-//
-//            } catch (Exception e) {
-//
-//                Log.d(TAG, "InsertData: Error ", e);
-//                errorString = e.toString();
-//
-//                return null;
-//            }
-//
-//        }
-//    }
-//
-//    private void showResult(){
-//
-//        try {
-//            JSONObject jsonObject = new JSONObject(mJsonString);
-//            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
-//
-//            for(int i=0;i<jsonArray.length();i++){
-//
-//                JSONObject item = jsonArray.getJSONObject(i);
-//                Log.d(TAG, "JSONObject : "+ item);
-//
-//                String userLifearray = item.getString("userLifearray");
-//                String userTrgterIndvdl = item.getString("userTrgterIndvdl");
-//
-//                for(int q=0; q<lifeArray_items.length ; q++){
-//                    if(lifeArray_items[q].equals(userLifearray)) {
-//                        Log.d(TAG, "생애주기 값 : " + lifeArray_items[q]);
-//                        check_life.setSelection(q);
-//                    }
-//                }
-//                for(int t=0; t<trgterIndvdlArray_items.length ; t++){
-//                    if(trgterIndvdlArray_items[t].equals(userTrgterIndvdl)) {
-//                        Log.d(TAG, "생애주기 값 : " + trgterIndvdlArray_items[t]);
-//                        check_trgterIndvdlArray.setSelection(t);
-//                    }
-//                }
-//            }
-//
-//        } catch (JSONException e) {
-//
-//            Log.d(TAG, "showResult_member : ", e);
-//        }
-//
-//    }
 
 }
 

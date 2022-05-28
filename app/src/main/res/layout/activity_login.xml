@@ -108,7 +108,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="10sp"
                     android:text="나에게 맞는 정보를 원해요"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -117,7 +117,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="10sp"
                     android:text="로그인 없이 볼래요"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -139,7 +139,7 @@
                 <Button
                     android:id="@+id/login_joinbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="15sp"
+                    android:layout_height="5sp"
                     android:text="회원가입"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -150,7 +150,7 @@
                 <Button
                     android:id="@+id/login_nmemberbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="15sp"
+                    android:layout_height="5sp"
                     android:text="비회원 접속"
                     android:layout_weight="1"
                     android:gravity="center"

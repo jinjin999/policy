@@ -11,13 +11,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aqua.anroid.policynoticeapp.MenuActivity;
 import com.aqua.anroid.policynoticeapp.R;
+import com.aqua.anroid.policynoticeapp.SettingActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +45,7 @@ public class MemberUpdateActivity extends AppCompatActivity {
     Spinner update_trgterIndvdlArray;
     TextView update_user_id;
     Button saveBtn;
+    ImageView backBtn;
 
     String[] lifeArray_items = {"선택안함", "영유아", "아동", "청소년", "청년","중장년", "노년", "임신·출산" };
     String[] trgterIndvdlArray_items = {"선택안함", "다문화·탈북민", "다자녀", "보훈대상자", "장애인", "저소득", "한부모·조손"};
@@ -57,6 +61,16 @@ public class MemberUpdateActivity extends AppCompatActivity {
         update_trgterIndvdlArray = findViewById(R.id.update_trgterIndvdlArray);
         saveBtn = findViewById(R.id.update_savebtn);
         update_user_id = findViewById(R.id.user_id);
+        backBtn = findViewById(R.id.backbtn);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MemberUpdateActivity.this, SettingActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
         /*아디디 출력*/
         SharedPreferences sharedPreferences = getSharedPreferences("userID",MODE_PRIVATE);

@@ -3,17 +3,30 @@ package com.aqua.anroid.policynoticeapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Chatbot_Main extends AppCompatActivity {
+import com.aqua.anroid.policynoticeapp.Favorite.FavoriteActivity;
 
+public class Chatbot_Main extends AppCompatActivity {
+    ImageView menubtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatbot_main);
 
        // Toast.makeText(getApplicationContext(), "챗봇 화면 !!", Toast.LENGTH_SHORT).show();
+
+        menubtn = findViewById(R.id.menubtn);
+        menubtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Chatbot_Main.this, MenuActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
     }
 

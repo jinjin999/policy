@@ -2,37 +2,29 @@ package com.aqua.anroid.policynoticeapp.Favorite;
 
 
 public class FavoriteData {
-    public String member_id;
-    public String member_name;
-    public String member_content;
+    public String item_name;
+    public String item_content;
 
 
-
-
-    public String getMember_id() {
-        return member_id;
-    }
-
-    public String getMember_name() {
-        return member_name;
-    }
-
-    public String getMember_content() {
-        return member_content;
+    public FavoriteData( String item_name, String item_content) {
+        this.item_name = item_name;
+        this.item_content = item_content;
     }
 
 
+    public String getItem_name() { return item_name; }
 
-    public void setMember_id(String member_id) {
-        this.member_id = member_id;
+    public String getItem_content() {
+        return item_content;
     }
 
-    public void setMember_name(String member_name) {
-        this.member_name = member_name;
+
+    public void setItem_name(String item_name) {
+        this.item_name = item_name;
     }
 
-    public void setMember_content(String member_content) {
-        this.member_content = member_content;
+    public void setItem_content(String item_content) {
+        this.item_content = item_content;
     }
 
 

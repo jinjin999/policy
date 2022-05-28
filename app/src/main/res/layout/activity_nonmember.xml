@@ -13,9 +13,10 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/menuimage_non"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:id="@+id/menubtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="20dp"
             android:layout_marginLeft="10dp"
             android:src="@drawable/menubtn" />
 

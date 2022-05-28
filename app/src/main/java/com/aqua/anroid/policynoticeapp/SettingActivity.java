@@ -7,11 +7,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aqua.anroid.policynoticeapp.Favorite.FavoriteActivity;
 import com.aqua.anroid.policynoticeapp.User.LoginActivity;
 import com.aqua.anroid.policynoticeapp.User.MemberUpdateActivity;
 
@@ -26,37 +29,43 @@ public class SettingActivity extends AppCompatActivity {
     private static String IP_ADDRESS = "10.0.2.2";
     private static String TAG = "register";
 
-    TextView setting_signout, memberInfo_update;
-
+    ImageView menubtn;
+    String userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
         SharedPreferences sharedPreferences = getSharedPreferences("userID",MODE_PRIVATE);
-        String userID  = sharedPreferences.getString("userID","");
+        userID  = sharedPreferences.getString("userID","");
 
-        setting_signout = findViewById(R.id.setting_signout);
-        memberInfo_update = findViewById(R.id.setting_edituser);
+        menubtn = findViewById(R.id.menubtn);
 
-        setting_signout.setOnClickListener(new View.OnClickListener() {
+        //메뉴버튼 클릭 시 메뉴화면으로 이동
+        menubtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DeleteData task = new DeleteData();
-                task.execute(userID);
-            }
-        });
-
-        memberInfo_update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SettingActivity.this, MemberUpdateActivity.class);
+                Intent intent = new Intent(SettingActivity.this, MenuActivity.class);
                 startActivity(intent);
 
             }
         });
 
     }
+    public void info_update(View view){
+        Intent intent = new Intent(SettingActivity.this, MemberUpdateActivity.class);
+        startActivity(intent);
+    }
+
+    public void signout(View view){
+        DeleteData task = new DeleteData();
+        task.execute(userID);
+    }
+    public void logout(View view){
+        Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
+
     class DeleteData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
 

@@ -23,11 +23,11 @@
 
             <ImageView
                 android:id="@+id/backbtn"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_margin="20dp"
-                android:layout_gravity="center"
                 android:src="@drawable/backbtn" />
+
 
             <TextView
                 android:id="@+id/inquiry"
