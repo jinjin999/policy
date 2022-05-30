@@ -115,6 +115,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
             if (result != null) {
                 mJsonString = result;
+
                 showResult();
             }
 
@@ -204,6 +205,10 @@ public class FavoriteActivity extends AppCompatActivity {
 
                     items_name.add(item_name); //items_name ArrayList에 php에서 받아온 item_name 추가
                     items_content.add(item_content); //items_content ArrayList에 php에서 받아온 item_content 추가
+
+                    Log.d(TAG, "items_name : " + items_name.toString());
+                    Log.d(TAG, "items_content : " + items_content.toString());
+
 
                     items.add(new FavoriteData(items_name.get(i),items_content.get(i)));
 

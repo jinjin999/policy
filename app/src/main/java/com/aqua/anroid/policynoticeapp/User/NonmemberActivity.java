@@ -68,6 +68,7 @@ public class NonmemberActivity extends AppCompatActivity {
     {
         Toast.makeText(getApplicationContext(), "버튼 클릭!!", Toast.LENGTH_SHORT).show();
         SearchDataList();
+
     }
 
     public void  onClick_search_Detail_non(View view) //상세조회버튼

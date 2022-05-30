@@ -34,6 +34,11 @@ public class PublicDataList {
 
     }
 
+    public PublicDataList(String servNm, String servDgst){
+        this.servDgst = servDgst;
+        this.servNm = servNm;
+    }
+
     public void SetEmpty(){
         jurMnofNm = "";
         lifeArray = "";
@@ -44,6 +49,10 @@ public class PublicDataList {
         servID = "";
     }
 
+    public String getServNm() {
+        return servNm;
+    }
+
     public String getServID() {
         return servID;
     }
@@ -52,11 +61,15 @@ public class PublicDataList {
         return servDgst;
     }
 
-    public void setServID(String member_id) {
+    public void setServID(String servID) {
         this.servID = servID;
     }
 
-    public void setServDgst(String member_name) {
+    public void setServNm(String servNm) {
+        this.servNm = servNm;
+    }
+
+    public void setServDgst(String servDgst) {
         this.servDgst = servDgst;
     }
 
