@@ -47,8 +47,6 @@ public class ParsingAdapter extends BaseAdapter {
 
     String userID;
     private Context context;
-    //private ArrayList<FavoriteData> favoriteDatalist; //Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    //private ArrayList<PublicDataList> publicDataLists = new ArrayList<PublicDataList>(); //목록조회 데이터
 
     ArrayList<PublicDataList> publicDataLists = new ArrayList<PublicDataList>();
 
@@ -111,12 +109,9 @@ public class ParsingAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        //holder.list_text_name.setText(publicDataLists.get(i).getServNm());
-        //publicDataList_item.getServNm());
         holder.list_text_name.setText(publicDataList_item.getServNm());
         holder.list_text_content.setText(publicDataList_item.getServDgst());
 
-        //holder.list_text_content.setText(publicDataLists.get(i).getServDgst());
 
         LinearLayout select_item = (LinearLayout) view.findViewById(R.id.select_item);
 

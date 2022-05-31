@@ -111,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
             if(result.equals("가입되었습니다")){
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(intent);
             }
             else if(result.equals("아이디를 입력하세요")){

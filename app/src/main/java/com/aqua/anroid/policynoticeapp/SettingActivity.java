@@ -7,15 +7,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.aqua.anroid.policynoticeapp.Favorite.FavoriteActivity;
-import com.aqua.anroid.policynoticeapp.User.LoginActivity;
+import com.aqua.anroid.policynoticeapp.User.MainActivity;
 import com.aqua.anroid.policynoticeapp.User.MemberUpdateActivity;
 
 import java.io.BufferedReader;
@@ -62,7 +59,7 @@ public class SettingActivity extends AppCompatActivity {
         task.execute(userID);
     }
     public void logout(View view){
-        Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+        Intent intent = new Intent(SettingActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
@@ -85,7 +82,7 @@ public class SettingActivity extends AppCompatActivity {
             progressDialog.dismiss();
 
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+            Intent intent = new Intent(SettingActivity.this, MainActivity.class);
             startActivity(intent);
 
             Log.d(TAG, "POST response  - " + result);

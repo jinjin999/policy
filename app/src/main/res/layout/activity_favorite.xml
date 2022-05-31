@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".User.MainActivity"
     android:padding="10sp"
     android:orientation="vertical">
 
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20sp"
-        tools:context=".MainActivity">
+        tools:context=".User.MainActivity">
 
 
         <ListView

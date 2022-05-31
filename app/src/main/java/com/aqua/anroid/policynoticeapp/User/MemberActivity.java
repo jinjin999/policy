@@ -121,7 +121,8 @@ public class MemberActivity extends AppCompatActivity implements ParsingAdapter.
         check_life.setSelection(0);
         check_trgterIndvdlArray.setSelection(0);
         check_desireArray.setSelection(0);
-        adapter.clear();
+        publicDataList.clear();
+        parsingAdapter.notifyDataSetChanged();
     }
     public void back_searchlist(View view){
         layout_2.setVisibility(View.VISIBLE);
@@ -489,24 +490,15 @@ public class MemberActivity extends AppCompatActivity implements ParsingAdapter.
             @Override
             public void run() {
                 for (int i = 0; i < publicDetailArray.size(); i++) {
-//                    //개행문자 제거
-//                    while (info != null) { //stringbuilder 끝까지 반복
-//                        line_index = info.indexOf("\n\n\n"); //"\n\n\n"의 첫번째 인덱스를 n에 대입
-//                        if(line_index==-1) { //"\n\n\n" 발견되지 않으면 break
-//                            break;
-//                        }
-//                        else {
-//                            info.delete(line_index, line_index + 2); //n번째부터 n+1번째까지 삭제("\n\n"삭제)
-//                        }
-//                    }
-
-                    // scrollItemList.add(" : " + info.toString());
-                    //StringBuilder info = new StringBuilder();
                     if (publicDetailArray.get(i).servNm != null)
                         servNm.setText(publicDetailArray.get(i).servNm);
 
                     if (publicDetailArray.get(i).jurMnofNm != null) {
-                        jurMnofNm.setText(publicDetailArray.get(i).jurMnofNm);
+                        //jurMnofNm.setText(publicDetailArray.get(i).jurMnofNm);
+                        if(publicDetailArray.get(i).jurMnofNm.contains("\n\n\n")){
+                            test = publicDetailArray.get(i).jurMnofNm.replace("\n\n\n\n","");
+                        }
+                        jurMnofNm.setText(test);
                     }
                     if (publicDetailArray.get(i).tgtrDtlCn != null) {
                         //tgtrDtlCn.setText(publicDetailArray.get(i).tgtrDtlCn);

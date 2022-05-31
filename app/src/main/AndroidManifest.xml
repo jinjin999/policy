@@ -23,8 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".User.LoginActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".User.MainActivity"></activity>
         <activity android:name=".User.RegisterActivity"></activity>
         <activity android:name=".Chatbot_Faq"></activity>
         <activity android:name=".Chatbot_Help"></activity>

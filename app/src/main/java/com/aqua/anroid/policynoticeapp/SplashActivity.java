@@ -6,7 +6,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.aqua.anroid.policynoticeapp.User.LoginActivity;
+import com.aqua.anroid.policynoticeapp.User.MainActivity;
 
 //초기화면 엑티비티
 public class SplashActivity extends AppCompatActivity {
@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent splash_intent = new Intent(SplashActivity.this, LoginActivity.class);
+                Intent splash_intent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(splash_intent);
                 finish();
             }

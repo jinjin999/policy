@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
-import com.aqua.anroid.policynoticeapp.MainActivity;
 import com.aqua.anroid.policynoticeapp.R;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;

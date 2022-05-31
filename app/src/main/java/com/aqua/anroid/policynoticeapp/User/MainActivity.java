@@ -13,9 +13,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.aqua.anroid.policynoticeapp.Favorite.FavoriteActivity;
 import com.aqua.anroid.policynoticeapp.R;
-import com.aqua.anroid.policynoticeapp.SplashActivity;
+import com.aqua.anroid.policynoticeapp.User.MemberActivity;
+import com.aqua.anroid.policynoticeapp.User.NonmemberActivity;
+import com.aqua.anroid.policynoticeapp.User.RegisterActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +30,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-public class LoginActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private static String TAG = "phpquerytest";
 
     private static final String TAG_JSON="root";
@@ -46,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
 
         btn_login = findViewById(R.id.login_btn);
         btn_register = findViewById(R.id.login_joinbtn);
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -69,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_nonmember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, NonmemberActivity.class);
+                Intent intent = new Intent(MainActivity.this, NonmemberActivity.class);
                 startActivity(intent);
             }
         });
@@ -92,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(LoginActivity.this,
+            progressDialog = ProgressDialog.show(MainActivity.this,
                     "Please Wait", null, true, true);
         }
 
@@ -222,7 +223,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("userID",test_id);
                 editor.commit();
 
-                Intent intent = new Intent(LoginActivity.this, MemberActivity.class);
+                Intent intent = new Intent(this, MemberActivity.class);
                 startActivity(intent);
 
 
