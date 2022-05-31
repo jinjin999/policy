@@ -37,9 +37,10 @@ public class FavoriteActivity extends AppCompatActivity {
 
     public static Context context;
     ArrayList<FavoriteData> items= new ArrayList<>();
-    public ArrayList<String> items_name= new ArrayList<>();
 
+    public ArrayList<String> items_name= new ArrayList<>();
     public ArrayList<String> items_content= new ArrayList<>();
+
     FavoriteAdapter favoriteAdapter;
 
     String userID;

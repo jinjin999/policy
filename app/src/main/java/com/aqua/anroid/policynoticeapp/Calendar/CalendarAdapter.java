@@ -50,7 +50,7 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         final LocalDate date = days.get(position);
 
         //ID 로 목록 찾고 리스트 호출
-        ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
+        ArrayList<Event> dailyEvents = CalendarActivity.eventsForDate(CalendarUtils.selectedDate);
 
 
 
@@ -76,9 +76,9 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             try {
-                for (int i = 0;Event.eventsList.size()>i ; i++) {
+                for (int i = 0;CalendarActivity.eventsList.size()>i ; i++) {
 
-                    Event CalendarDate1 = Event.eventsList.get(i);
+                    Event CalendarDate1 = CalendarActivity.eventsList.get(i);
                     Date curr = dateFormat.parse(date.toString());
 
                     Date d1 = dateFormat.parse(CalendarDate1.startdate);

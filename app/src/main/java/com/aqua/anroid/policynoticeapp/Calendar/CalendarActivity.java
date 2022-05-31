@@ -4,7 +4,10 @@ package com.aqua.anroid.policynoticeapp.Calendar;
 import static com.aqua.anroid.policynoticeapp.Calendar.CalendarUtils.daysInMonthArray;
 import static com.aqua.anroid.policynoticeapp.Calendar.CalendarUtils.monthYearFromDate;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,23 +20,66 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.aqua.anroid.policynoticeapp.Favorite.FavoriteActivity;
+import com.aqua.anroid.policynoticeapp.Favorite.FavoriteData;
 import com.aqua.anroid.policynoticeapp.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CalendarActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
+    private static String IP_ADDRESS = "10.0.2.2";
+    private static String TAG = "phptest";
+    private static final String TAG_JSON="root";
+
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
+
+    String userID;
+    String mJsonString;
+
+    public static ArrayList<Event> eventsList = new ArrayList<>(); //이벤트 목록
+    public static ArrayList<String> titles= new ArrayList<>();
+    public static ArrayList<String> startdates= new ArrayList<>();
+    public static ArrayList<String> enddates= new ArrayList<>();
+    static ArrayList<Event> items= new ArrayList<>();
+    ArrayList<Event> dailyEvents;
+    EventAdapter eventAdapter;
+    static ArrayList<Event> events;
+
+    String title;
+    String startdate;
+    String enddate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("userID",MODE_PRIVATE);
+        userID  = sharedPreferences.getString("userID","");
+
+        GetData task = new GetData();
+        task.execute(userID);
+
         initWidgets(); //id 통해 목록 찾음
         //loadFromDBToMemory();
 
@@ -72,6 +118,12 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
 
+
+
+
+//        eventsForDate(CalendarUtils.selectedDate);
+
+
         setEventAdapter();
     }
 
@@ -103,9 +155,12 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private void setEventAdapter()
     {
         //ID 로 목록 찾고 리스트 호출
-        ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
-        EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
+        dailyEvents = eventsForDate(CalendarUtils.selectedDate);
+//        eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents, items);
+        eventAdapter = new EventAdapter(this, this, dailyEvents);
+
         eventListView.setAdapter(eventAdapter);
+
     }
 
     // event item 클릭 시
@@ -136,6 +191,209 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     {
         super.onResume();
         setEventAdapter();
+    }
+
+    // 주어진 날짜에 대한 모든 이벤트 반환
+    public static ArrayList<Event> eventsForDate(LocalDate date) {
+//        ArrayList<Event> events = new ArrayList<>();
+        events = new ArrayList<>();
+
+        for (int k = 0; k<eventsList.size(); k++)
+        {
+//            items.add(new Event(titles.get(k),startdates.get(k),enddates.get(k)));
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String selectDate1 = date.toString();   //현재누른날짜
+            String startDate1 = eventsList.get(k).getStartdate();  //시작날짜
+            String endDate1 = eventsList.get(k).getEnddate();  //종료날짜
+            Date selectDate = null;
+
+            Log.d("시작날짜", startDate1);
+
+
+            try {
+                selectDate = dateFormat.parse(selectDate1);
+
+                Date startDate  = dateFormat.parse(startDate1);
+                Date endDate    = dateFormat.parse(endDate1);
+
+                int result1 = selectDate.compareTo(startDate);       // curr > d1
+                int result2 = selectDate.compareTo(endDate);
+
+                // 조건이 맞을때
+                if((result1>=0)&&(result2<=0))  //선택한 날짜가 시작날짜랑 같거나 크고 & 앤드날짜보다 작거나 같으면
+                    events.add(eventsList.get(k));   //items.get(k)가  events 어레이에 더해짐
+            }
+            catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return events;
+    }
+
+    public static Event getEventForID(int passedEventID)
+    {
+        for(Event event : eventsList)
+        {
+            if(event.getId() == passedEventID)
+                return event;
+        }
+        return null;
+    }
+
+    class GetData extends AsyncTask<String, Void, String> {
+
+        ProgressDialog progressDialog;
+        String errorString = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(CalendarActivity.this,
+                    "Please Wait", null, true, true);
+
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progressDialog.dismiss();
+            Log.d(TAG, "response - " + result);
+
+            if (result != null) {
+                mJsonString = result;
+
+                showResult();
+            }
+
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String searchKeyword1 = params[0];
+
+            String serverURL = "http://10.0.2.2/event_query.php";
+            String postParameters = "userID=" + searchKeyword1;
+
+            Log.d(TAG, "userID_event : " + searchKeyword1);
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                } else {
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString().trim();
+
+
+            } catch (Exception e) {
+
+                Log.d(TAG, "InsertData: Error ", e);
+                errorString = e.toString();
+
+                return null;
+            }
+
+        }
+
+
+        public void showResult() {
+
+            try {
+                JSONObject jsonObject = new JSONObject(mJsonString);
+                JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+
+                    JSONObject item = jsonArray.getJSONObject(i);
+                    Log.d(TAG, "JSONObject : " + item);
+
+                    title = item.getString("title");
+                    startdate = item.getString("startdate");
+                    enddate = item.getString("enddate");
+
+//                    titles.add(title); //items_name ArrayList에 php에서 받아온 item_name 추가
+//                    startdates.add(startdate); //items_name ArrayList에 php에서 받아온 item_name 추가
+//                    enddates.add(enddate); //items_content ArrayList에 php에서 받아온 item_content 추가
+
+                    eventsList.add(new Event(title,startdate,enddate));
+
+                    Log.d(TAG, "eventsList : " + eventsList.toString());
+//
+//                    eventAdapter.addItem(eventsList.get(i));
+//                    eventAdapter.notifyDataSetChanged();
+
+//                    eventsList.get(i).setStartdate(startdate);
+//                    eventsList.get(i).setEnddate(enddate);
+
+
+//                    Log.d(TAG, "titles : " + titles.toString());
+//                    Log.d(TAG, "startdates : " + startdates.toString());
+//                    Log.d(TAG, "enddates : " + enddates.toString());
+
+//                    Log.d(TAG, "eventsList : " + eventsList.toString());
+
+//                    items.add(new Event(titles.get(i),startdates.get(i),enddates.get(i)));
+
+                    //eventsList_test.add(items.get(i));
+                    //Log.d(TAG, "items : " + items.get(i).getTitle() + items.get(i).getStartdate() + items.get(i).getEnddate());
+
+                    //Log.d(TAG, "items : " + eventsForDate(CalendarUtils.selectedDate).get(i));
+//
+//                    eventAdapter.addItem(items.get(i));
+//                    eventAdapter.notifyDataSetChanged();
+
+                }
+
+            } catch (JSONException e) {
+
+                Log.d(TAG, "showResult_member : ", e);
+            }
+
+        }
     }
 
 }
