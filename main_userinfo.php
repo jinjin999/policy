@@ -27,7 +27,7 @@
             extract($row);
 
                 array_push($data, 
-                    array('id'=>$row["id"],
+                    array(
                     'userLifearray'=>$row["userLifearray"],
                     'userTrgterIndvdl'=>$row["userTrgterIndvdl"]
                 ));

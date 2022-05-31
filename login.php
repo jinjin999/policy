@@ -34,7 +34,7 @@
                 extract($row);
 
                     array_push($data, 
-                        array('id'=>$row["id"],
+                        array(
                         'userID'=>$row["userID"],
                         'userPass'=>$row["userPass"]
                     ));

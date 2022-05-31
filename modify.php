@@ -31,7 +31,7 @@
     
             else{
                 try{
-                    // SQL문을 실행하여 데이터를 MySQL 서버의 user 테이블에 저장
+                    // user의 변경된 정보 update
                     $sql = "update user set userPass='$hash', userLifearray='$userLifearray', userTrgterIndvdl='$userTrgterIndvdl' where userID='$userID'";
                     $stmt = $con->prepare($sql);
                     $stmt->execute();

@@ -6,16 +6,16 @@
     include('dbcon.php');
 
     //POST 값을 읽어온다.
-    $name = isset($_POST['name']) ? $_POST['name'] : '';
-
+    $item_name = isset($_POST['item_name']) ? $_POST['item_name'] : '';
     $android = strpos($_SERVER['HTTP_USER_AGENT'], "Android");
 
-    $sql="select * from favorite WHERE name='$name'";
+
+    $sql="select * from favorite where item_name='$item_name'";
     $stmt = $con->prepare($sql);
     $stmt->execute();
 
     try{
-        $sql = "delete from favorite where name='$name'";
+        $sql = "delete from favorite where item_name='$item_name'";
         //sql문 실행하여 데이터를 MYSQL 서버의 favorite 테이블에서 제거
         $stmt = $con->prepare($sql);
         $stmt->execute();

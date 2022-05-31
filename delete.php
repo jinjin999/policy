@@ -23,7 +23,9 @@
 
     else{
         try{
-            $sql = "delete from user where userID='$userID'";
+            // $sql = "delete from user,favorite where userID='$userID'";
+            $sql = "delete from a,b using user as a left join favorite as b on a.userID=B.userID where b.userID='$userID'";
+
             $stmt = $con->prepare($sql);
             $stmt->execute();
             
