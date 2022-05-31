@@ -57,6 +57,12 @@ public class SettingActivity extends AppCompatActivity {
     public void signout(View view){
         DeleteData task = new DeleteData();
         task.execute(userID);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("autoLogin",MODE_PRIVATE);
+        SharedPreferences.Editor spEdit = sharedPreferences.edit();
+        spEdit.clear();
+        spEdit.commit();
+
     }
     public void logout(View view){
         Intent intent = new Intent(SettingActivity.this, MainActivity.class);

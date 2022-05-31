@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -105,7 +106,7 @@ public class FavoriteAdapter extends BaseAdapter {
 
 
         //삭제 버튼 클릭 시
-        Button deletebutton = (Button) view.findViewById(R.id.deletebutton);
+        ImageView deletebutton = (ImageView) view.findViewById(R.id.deletebutton);
         //ViewHolder finalHolder = holder;
         deletebutton.setOnClickListener(new View.OnClickListener() {
             @Override

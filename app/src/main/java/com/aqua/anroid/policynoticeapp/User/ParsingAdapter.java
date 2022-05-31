@@ -57,10 +57,11 @@ public class ParsingAdapter extends BaseAdapter {
     String servID;
 
 
-    public ParsingAdapter(Context context, ArrayList<PublicDataList> publicDataLists, OnItemClick listener) {
+    public ParsingAdapter(Context context, ArrayList<PublicDataList> publicDataLists, OnItemClick listener, Activity activity) {
         this.context = context;
         this.publicDataLists = publicDataLists;
         this.listener = listener;
+        this.activity = activity;
     }
 
     //Adapter에 사용되는 데이터의 개수를 리턴
@@ -129,6 +130,7 @@ public class ParsingAdapter extends BaseAdapter {
             public void onClick(View view) {
                 FavoriteInsertData task = new FavoriteInsertData();
                 task.execute("http://" + IP_ADDRESS + "/favorite.php", userID, holder.list_text_name.getText().toString(), holder.list_text_content.getText().toString());
+
             }
         });
         //해당 view 반납
@@ -171,9 +173,22 @@ public class ParsingAdapter extends BaseAdapter {
             super.onPostExecute(result);
 
             Log.d("즐찾결과",result);
-            Toast.makeText(context.getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context.getApplicationContext(), result, Toast.LENGTH_SHORT).show();
 
             Log.d(TAG, "POST response  - " + result);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+            alertDialogBuilder
+                    .setMessage(result)
+                    .setCancelable(true)
+                    .setPositiveButton("확인",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int arg1) {
+                                    //context.startActivity(new Intent(context, FavoriteActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                                }
+                            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         }
 
 

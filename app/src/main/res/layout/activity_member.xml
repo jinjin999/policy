@@ -21,11 +21,11 @@
 
         <ImageView
             android:id="@+id/menubtn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_margin="20dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/menubtn" />
+            android:src="@drawable/menu_black" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,6 +47,7 @@
                     android:layout_marginTop="11dp"
                     android:background="@null"
                     android:hint="검색어"
+                    android:fontFamily="@font/font_style"
                     android:textSize="20sp"
                     android:layout_weight="0.7"
 
@@ -59,6 +60,7 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="10sp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/font_style"
                     />
 
             </LinearLayout>
@@ -84,6 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="생애주기"
+                        android:fontFamily="@font/font_style"
                         android:textColor="@color/black"
                         android:textSize="15dp"
                         android:gravity="center"
@@ -91,6 +94,7 @@
 
                     <Spinner
                         android:id="@+id/check_life"
+                        android:fontFamily="@font/font_style"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5sp"
@@ -110,6 +114,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="가구유형"
+                        android:fontFamily="@font/font_style"
                         android:textColor="@color/black"
                         android:textSize="15dp"
                         android:gravity="center"
@@ -120,7 +125,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5sp"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:fontFamily="@font/font_style"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -135,6 +141,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="관심주제"
+                        android:fontFamily="@font/font_style"
                         android:textColor="@color/black"
                         android:textSize="15dp"
                         android:gravity="center"
@@ -145,7 +152,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5sp"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:fontFamily="@font/font_style"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -168,6 +176,7 @@
                 android:background="@drawable/btn_round"
                 android:onClick="onClick_serch_List"
                 android:text="목록조회"
+                android:fontFamily="@font/font_style"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:textColor="@color/white"/>
@@ -181,6 +190,7 @@
                 android:background="@drawable/btn_round"
                 android:onClick="onClick_resetBtn"
                 android:text="초기화"
+                android:fontFamily="@font/font_style"
                 android:textColor="@color/white"
                 android:layout_weight="1"
                 android:textSize="16dp"
@@ -209,8 +219,8 @@
 
             <ImageView
                 android:id="@+id/backbtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_margin="20dp"
                 android:layout_marginLeft="10dp"
                 android:src="@drawable/backbtn"
@@ -228,13 +238,12 @@
                 android:padding="20sp">
 
 
-
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/servNm"
-                android:hint="서비스명">
+                android:hint="서비스명"
+                android:fontFamily="@font/font_style">
 
             </TextView>
 
@@ -243,7 +252,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:id="@+id/jurMnofNm"
-                android:hint="서비스명">
+                android:hint="서비스명"
+                android:fontFamily="@font/font_style">
             </TextView>
 
             <TextView
@@ -251,7 +261,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:id="@+id/tgtrDtlCn"
-                android:hint="서비스명">
+                android:hint="서비스명"
+                android:fontFamily="@font/font_style">
             </TextView>
 
             <TextView
@@ -259,7 +270,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:id="@+id/slctCritCn"
-                android:hint="서비스명">
+                android:hint="서비스명"
+                android:fontFamily="@font/font_style">
             </TextView>
 
             <TextView
@@ -267,7 +279,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:id="@+id/alwServCn"
-                android:hint="서비스명">
+                android:hint="서비스명"
+                android:fontFamily="@font/font_style">
             </TextView>
 
             <TextView
@@ -283,7 +296,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:id="@+id/lifeArray"
-                android:hint="서비스명">
+                android:hint="서비스명"
+                android:fontFamily="@font/font_style">
             </TextView>
             </LinearLayout>
             </ScrollView>

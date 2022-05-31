@@ -3,11 +3,11 @@ package com.aqua.anroid.policynoticeapp.Calendar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
@@ -17,17 +17,19 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+
 import java.util.Date;
 
 public class EventEditActivity extends AppCompatActivity {
     private EditText eventTitleET;
-    private TextView startDateTV, endDateTV;
+    private TextView eventDateTV, eventTimeTV, startDateTV, endDateTV;
     private Button deleteEventBtn, eventDatePickerBtn;
 
-    private Event selectedEvent;
+    public Event selectedEvent;
     private LocalTime time; // 현지 시간으로 시간 호출
     Event event = new Event();
 
+    private static int nNumberID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,10 +39,6 @@ public class EventEditActivity extends AppCompatActivity {
         initWidgets();
         time = LocalTime.now(); // 지금 현지 시간으로 초기화
 
-       /* //날짜 Text 선택한 날짜로 설정
-        eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
-        eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(time));
-*/
         checkForEditEvent();
 
     }
@@ -53,6 +51,7 @@ public class EventEditActivity extends AppCompatActivity {
 
         startDateTV = findViewById(R.id.startDateTV);
         endDateTV = findViewById(R.id.endDateTV);
+
     }
 
     private void checkForEditEvent()
@@ -69,9 +68,6 @@ public class EventEditActivity extends AppCompatActivity {
             startDateTV.setText(selectedEvent.getStartdate());
             endDateTV.setText(selectedEvent.getEnddate());
 
-          /*  Log.e("etitle:", selectedEvent.getTitle());
-            Log.e("estartdate:", selectedEvent.getStartdate());
-            Log.e("eenddate:", selectedEvent.getEnddate());*/
         }
         else
         {
@@ -88,11 +84,13 @@ public class EventEditActivity extends AppCompatActivity {
 
 
         if (selectedEvent == null) {
-            int id = Event.eventsList.size();
-            Event newEvent = new Event(id, eventTitle, CalendarUtils.selectedDate, eventStartDate, eventEndDate, time);
+            //int id = Event.eventsList.size();
+            nNumberID++;
+            Event newEvent = new Event(nNumberID, eventTitle, eventStartDate, eventEndDate);
             //Event newEvent = new Event (eventTitle,CalendarUtils.selectedDate, time);
 
             Event.eventsList.add(newEvent); // 새 이벤트를 이벤트 목록에 추가
+
         }
         // 편집 모드
         else
@@ -112,10 +110,9 @@ public class EventEditActivity extends AppCompatActivity {
     // 이벤트 삭제
     public void deleteEventAction(View view) {
         // 새 날짜를 호출하여 삭제된 시간을 제공
-        selectedEvent.setDeleted(new Date());
+        Event.eventsList.remove(selectedEvent);
         //db 설정
         //db 업데이트
-
         startActivity(new Intent(this, CalendarActivity.class));
     }
 

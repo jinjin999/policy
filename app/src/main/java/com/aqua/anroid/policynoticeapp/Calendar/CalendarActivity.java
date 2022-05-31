@@ -6,11 +6,12 @@ import static com.aqua.anroid.policynoticeapp.Calendar.CalendarUtils.monthYearFr
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,8 +21,7 @@ import com.aqua.anroid.policynoticeapp.R;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-
+import java.util.List;
 
 public class CalendarActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
@@ -36,6 +36,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         setContentView(R.layout.activity_calendar);
         initWidgets(); //id 통해 목록 찾음
         //loadFromDBToMemory();
+
         CalendarUtils.selectedDate = LocalDate.now(); //현재 날짜
         setMonthView(); //화면 설정
         setOnClickListener();
@@ -44,7 +45,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private void initWidgets()
     {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
-        monthYearText = findViewById(R.id.monthYearTV);
+        monthYearText = (TextView) findViewById(R.id.monthYearTV);
         eventListView = findViewById(R.id.eventListView);
     }
 
@@ -56,6 +57,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
 
     private void setMonthView()
     {
+        Log.d("monthYearFromDate(CalendarUtils.selectedDate", monthYearFromDate(CalendarUtils.selectedDate));
+
         //년 월 텍스트뷰
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
 
@@ -91,12 +94,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         //CalendarUtils.selectedDate 가 날짜와 같도록 설정
         if(date != null)
         {
-            String message = String.valueOf(date);
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-
             CalendarUtils.selectedDate = date;
             setMonthView();
-
         }
     }
 

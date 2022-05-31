@@ -22,6 +22,7 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:text="회원가입"
+                android:fontFamily="@font/font_style"
                 android:textSize="40dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -51,6 +52,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ID"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/font_style"
                         android:textSize="15sp"
                         android:layout_marginLeft="5sp"/>
 
@@ -66,6 +69,7 @@
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:hint="아이디를 입력하세요"
+                            android:fontFamily="@font/font_style"
                             android:singleLine="true" />
 
                         <Button
@@ -74,6 +78,7 @@
                             android:id="@+id/chekc_id_btn"
                             android:layout_marginLeft="10sp"
                             android:text="중복확인"
+                            android:fontFamily="@font/font_style"
                             android:background="@drawable/btn_round"
                             android:textColor="@color/white">
 
@@ -91,7 +96,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/check_id"
                 android:textSize="12sp"
-                android:text="아이디 중복확인을 해주세요">
+                android:text="아이디 중복확인을 해주세요"
+                android:fontFamily="@font/font_style">
             </TextView>
 
             <LinearLayout
@@ -109,6 +115,8 @@
                     android:layout_gravity="left"
                     android:layout_marginLeft="50sp"
                     android:text="PASSWORD"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/font_style"
                     android:textSize="15sp" />
 
                 <LinearLayout
@@ -125,6 +133,7 @@
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:hint="비밀번호를 입력하세요"
+                        android:fontFamily="@font/font_style"
                         android:inputType="textPassword" />
 
                 </LinearLayout>
@@ -134,6 +143,7 @@
             <TextView
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/font_style"
                 android:textSize="12sp"
                 android:id="@+id/check_pass">
             </TextView>
@@ -154,6 +164,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="생애주기"
+                android:textColor="@color/black"
+                android:fontFamily="@font/font_style"
                 android:textSize="15dp"
                 android:layout_marginLeft="5sp"/>
 
@@ -162,13 +174,16 @@
                 android:entries = "@array/age_array"
                 android:layout_width="match_parent"
                 android:layout_height="40sp"
-                android:layout_marginTop="5sp"/>
+                android:layout_marginTop="5sp"
+                android:fontFamily="@font/font_style"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="가구유형"
+                android:textColor="@color/black"
+                android:fontFamily="@font/font_style"
                 android:textSize="15dp"
                 android:layout_marginTop="20sp"
                 android:layout_marginLeft="5sp"/>
@@ -179,7 +194,8 @@
                 android:entries = "@array/gender_array"
                 android:layout_width="match_parent"
                 android:layout_height="40sp"
-                android:layout_marginTop="5sp"/>
+                android:layout_marginTop="5sp"
+                android:fontFamily="@font/font_style"/>
 
         </LinearLayout>
 
@@ -196,6 +212,7 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:text="저장"
+                android:fontFamily="@font/font_style"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:onClick="MyOnClick"

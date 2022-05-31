@@ -1,6 +1,7 @@
 package com.aqua.anroid.policynoticeapp.User;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -16,8 +17,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aqua.anroid.policynoticeapp.Favorite.FavoriteActivity;
 import com.aqua.anroid.policynoticeapp.MenuActivity;
 import com.aqua.anroid.policynoticeapp.R;
 import com.aqua.anroid.policynoticeapp.SettingActivity;
@@ -129,7 +132,21 @@ public class MemberUpdateActivity extends AppCompatActivity {
 
                 UpdateData task = new UpdateData();
                 task.execute("http://" + IP_ADDRESS + "/modify.php",userID,userPass,userLifearray,userTrgterIndvdl);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MemberUpdateActivity.this);
+                alertDialogBuilder
+                        .setMessage( "수정되었습니다")
+                        .setCancelable(true)
+                        .setPositiveButton("확인",
+                                new DialogInterface.OnClickListener() {
 
+                                    public void onClick(DialogInterface dialog, int arg1) {
+                                        startActivity(new Intent(MemberUpdateActivity.this, MemberActivity.class));
+
+                                    }
+                                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
 
@@ -142,8 +159,8 @@ public class MemberUpdateActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(MemberUpdateActivity.this,
-                    "Please Wait", null, true, true);
+//            progressDialog = ProgressDialog.show(MemberUpdateActivity.this,
+//                    "Please Wait", null, true, true);
         }
 
 
@@ -151,11 +168,12 @@ public class MemberUpdateActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            progressDialog.dismiss();
+//            progressDialog.dismiss();
 
             Log.d(TAG, "update_result "+ result);
 
-            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+
 
         }
 

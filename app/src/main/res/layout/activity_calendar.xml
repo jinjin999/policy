@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".User.MainActivity">
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -14,12 +14,20 @@
         android:minHeight="?actionBarSize"
         android:theme="?actionBarTheme"
         android:background="@color/maincolor">
+        <ImageView
+            android:id="@+id/menubtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/menu_white" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:text="달 력"
+            android:fontFamily="@font/font_style"
             android:layout_gravity="center"
             android:textSize="20sp"/>
         <Button
@@ -37,7 +45,6 @@
         android:layout_weight="1.6"
         android:background="@drawable/calendar_main"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:elevation="10dp"
@@ -86,6 +93,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -165,11 +174,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@drawable/event_main"
         android:orientation="vertical">
         <ListView
             android:id="@+id/eventListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
             android:dividerHeight="1dp"
             android:divider="@color/lightgray" />
     </LinearLayout>

@@ -61,6 +61,7 @@
             android:layout_height="wrap_content"
             android:textSize="35dp"
             android:text="검색"
+            android:fontFamily="@font/font_style"
             android:textColor="@color/black"
             />
 
@@ -91,6 +92,7 @@
             android:layout_weight="1"
             android:textSize="35dp"
             android:text="즐겨찾기"
+            android:fontFamily="@font/font_style"
             android:textColor="@color/black"
             />
     </LinearLayout>
@@ -119,6 +121,7 @@
             android:layout_height="wrap_content"
             android:textSize="35dp"
             android:text="캘린더"
+            android:fontFamily="@font/font_style"
             android:textColor="@color/black"
             />
     </LinearLayout>
@@ -144,7 +147,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="35dp"
-            android:text="Chatbot"
+            android:text="문의"
+            android:fontFamily="@font/font_style"
             android:textColor="@color/black"
             />
     </LinearLayout>
@@ -173,6 +177,7 @@
             android:layout_height="wrap_content"
             android:textSize="35dp"
             android:textColor="@color/black"
+            android:fontFamily="@font/font_style"
             android:text="설정" />
     </LinearLayout>
         </LinearLayout>

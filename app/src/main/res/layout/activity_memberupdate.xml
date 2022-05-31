@@ -15,8 +15,8 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/backbtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_margin="20dp"
                 android:src="@drawable/backbtn" />
 
@@ -29,6 +29,7 @@
                 android:layout_gravity="center"
                 android:textStyle="bold"
                 android:text="회원정보수정"
+                android:fontFamily="@font/font_style"
                 android:textSize="40dp" />
 
         </LinearLayout>
@@ -60,6 +61,8 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="아이디값"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/font_style"
                     android:textSize="20dp" />
 
 
@@ -86,6 +89,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:hint="변경할 비밀번호를 입력하세요"
+                    android:fontFamily="@font/font_style"
                     android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -114,6 +118,8 @@
                     android:layout_weight="0.5"
                     android:gravity="center"
                     android:text="생애주기"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/font_style"
                     android:textSize="20dp" />
 
                 <LinearLayout
@@ -127,7 +133,8 @@
                         android:id="@+id/update_lifearray"
                         android:entries = "@array/age_array"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/font_style"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -144,6 +151,8 @@
                     android:layout_weight="0.5"
                     android:gravity="center"
                     android:text="가구유형"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/font_style"
                     android:textSize="20dp" />
 
                 <LinearLayout
@@ -157,7 +166,8 @@
                         android:id="@+id/update_trgterIndvdlArray"
                         android:entries = "@array/gender_array"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/font_style"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -176,6 +186,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_round"
                 android:text="수정하기"
+                android:fontFamily="@font/font_style"
                 android:textStyle="bold"
                 android:textColor="@color/white"/>
         </LinearLayout>

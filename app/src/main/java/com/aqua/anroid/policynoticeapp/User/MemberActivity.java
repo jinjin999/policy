@@ -106,7 +106,6 @@ public class MemberActivity extends AppCompatActivity implements ParsingAdapter.
 
     public void onClick_serch_List(View view) //목록조회버튼
     {
-        Toast.makeText(getApplicationContext(), "버튼 클릭!!", Toast.LENGTH_SHORT).show();
         //list.invalidateViews();
         SearchDataList();
 
@@ -114,7 +113,6 @@ public class MemberActivity extends AppCompatActivity implements ParsingAdapter.
 
     public void  onClick_resetBtn(View view) //초기화 버튼
     {
-        Toast.makeText(getApplicationContext(), "버튼 클릭!!", Toast.LENGTH_SHORT).show();
         input_searchWrd = findViewById(R.id.input_searchWrd);
         input_searchWrd.setText(null);
         input_searchWrd.clearFocus();
@@ -409,7 +407,7 @@ public class MemberActivity extends AppCompatActivity implements ParsingAdapter.
     void InitListView() {
         list = (ListView) findViewById(R.id.listView1);
         publicDataList = new ArrayList<>();
-        parsingAdapter = new ParsingAdapter(this, publicDataList, this);
+        parsingAdapter = new ParsingAdapter(this, publicDataList, this, this);
         list.setAdapter(parsingAdapter);
 
 

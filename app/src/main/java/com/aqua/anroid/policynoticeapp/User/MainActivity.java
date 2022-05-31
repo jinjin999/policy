@@ -8,15 +8,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.aqua.anroid.policynoticeapp.R;
-import com.aqua.anroid.policynoticeapp.User.MemberActivity;
-import com.aqua.anroid.policynoticeapp.User.NonmemberActivity;
-import com.aqua.anroid.policynoticeapp.User.RegisterActivity;
+import com.aqua.anroid.policynoticeapp.NonUser.NonmemberActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_login, btn_register, btn_nonmember;
     TextView state_result;
     String mJsonString;
+    CheckBox login_state;
+
+    String userID;
+    String userPass;
 
     SharedPreferences preferences;
     @Override
@@ -55,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         state_result = (TextView) findViewById(R.id.login_result);
         edit_id = (EditText) findViewById(R.id.login_id);
         edit_pw = (EditText) findViewById(R.id.login_pw);
+
+
+
 
 
 
@@ -76,13 +82,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btn_login.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
+            @Override
+            public void onClick(View view) {
                 GetData task = new GetData();
                 task.execute( edit_id.getText().toString(), edit_pw.getText().toString());
             }
         });
+
+
+
     }
+
+
 
     private class GetData extends AsyncTask<String, Void, String> {
 
@@ -204,8 +215,8 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject item = jsonArray.getJSONObject(i);
 
                 //String id = item.getString(TAG_ID);
-                String userID = item.getString(TAG_NAME);
-                String userPass = item.getString(TAG_COUNTRY);
+                userID = item.getString(TAG_NAME);
+                userPass = item.getString(TAG_COUNTRY);
 
                 HashMap<String,String> hashMap = new HashMap<>();
 

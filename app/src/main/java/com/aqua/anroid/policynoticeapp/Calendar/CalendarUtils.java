@@ -2,6 +2,7 @@ package com.aqua.anroid.policynoticeapp.Calendar;
 
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,12 +13,25 @@ public class CalendarUtils
 {
     public static LocalDate selectedDate; //선택한 날짜
 
+    public static String formattedDate(LocalDate date)
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MMMM dd", Locale.KOREAN);
+        return date.format(formatter);
+    }
+
+    public static String formattedTime(LocalTime time)
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a", Locale.KOREAN);
+        return time.format(formatter);
+    }
+
     // 월 년도
     public static String monthYearFromDate(LocalDate date)
     {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MMMM", Locale.KOREAN);
         return date.format(formatter);
     }
+
 
     //월 별 배열
     public static ArrayList<LocalDate> daysInMonthArray(LocalDate date)

@@ -2,32 +2,19 @@ package com.aqua.anroid.policynoticeapp.Favorite;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.aqua.anroid.policynoticeapp.MenuActivity;
-import com.aqua.anroid.policynoticeapp.Parser.PublicDataList;
 import com.aqua.anroid.policynoticeapp.R;
-import com.aqua.anroid.policynoticeapp.User.MemberUpdateActivity;
-import com.aqua.anroid.policynoticeapp.User.NonmemberActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +27,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /*즐겨찾기 클릭 시*/
 public class FavoriteActivity extends AppCompatActivity {

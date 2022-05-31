@@ -23,8 +23,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:textColor="#000000"
-            android:fontFamily="@font/font_style"
-
             android:textSize="13dp"
             >
         </TextView>
@@ -36,27 +34,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:textColor="#000000"
-            android:fontFamily="@font/font_style"
             android:textSize="13dp"
             android:layout_marginBottom="10sp"
             >
         </TextView>
     </LinearLayout>
 
-
-
-    <Button
-        android:id="@+id/add_favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="즐겨찾기"
-        android:fontFamily="@font/font_style"
-        android:background="@drawable/btn_round"
-        android:textColor="@color/white"
-        android:layout_weight="0.1"
-        android:layout_marginLeft="20sp"
-        android:layout_gravity="center"
-        >
-
-    </Button>
 </LinearLayout>

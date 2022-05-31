@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
-    private final ArrayList<LocalDate> days; //날짜 배열 목록
+    private final ArrayList<LocalDate> days;
     public final View parentView;
     public final TextView dayOfMonth;
     private final CalendarAdapter.OnItemListener onItemListener;
@@ -38,3 +38,4 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
 
 
 }
+

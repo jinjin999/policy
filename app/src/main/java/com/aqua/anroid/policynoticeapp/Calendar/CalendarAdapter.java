@@ -28,6 +28,7 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         this.onItemListener = onItemListener;
     }
 
+
     @NonNull
     @Override
     public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
@@ -36,6 +37,7 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         View view = inflater.inflate(R.layout.calendar_cell, parent, false);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         layoutParams.height = (int) (parent.getHeight() * 0.155555555); //월별 달력
+
 
         return new CalendarViewHolder(view, onItemListener, days);
     }
@@ -46,10 +48,11 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     {
         //날짜 변수에 담기
         final LocalDate date = days.get(position);
-        Event selectedEvent;
 
         //ID 로 목록 찾고 리스트 호출
         ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
+
+
 
         if (date == null)
             //날짜가 null인 경우 홀더 날짜를 설정
@@ -73,23 +76,21 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             try {
-                if (Event.eventsList.size()>0) {
-                    for (int i = 0;Event.eventsList.size()>i ; i++) {
+                for (int i = 0;Event.eventsList.size()>i ; i++) {
 
-                        Event CalendarDate1 = Event.eventsList.get(i);
-                        Date curr = dateFormat.parse(date.toString());
+                    Event CalendarDate1 = Event.eventsList.get(i);
+                    Date curr = dateFormat.parse(date.toString());
 
-                        Date d1 = dateFormat.parse(CalendarDate1.startdate);
-                        Date d2 = dateFormat.parse(CalendarDate1.enddate);
+                    Date d1 = dateFormat.parse(CalendarDate1.startdate);
+                    Date d2 = dateFormat.parse(CalendarDate1.enddate);
 
-                        int result1 = curr.compareTo(d1);       // curr > d1
-                        int result2 = curr.compareTo(d2);
 
-                        // 조건이 맞을때
-                        if ((result1 >= 0) && (result2 <= 0))
-                            holder.parentView.setBackgroundColor(Color.GREEN);
-                    }
+                    int result1 = curr.compareTo(d1);       // curr > d1
+                    int result2 = curr.compareTo(d2);
 
+                    // 조건이 맞을때
+                    if ((result1 >= 0) && (result2 <= 0))
+                        holder.parentView.setBackgroundColor(Color.GREEN);
                 }
             }
             catch (ParseException e) {

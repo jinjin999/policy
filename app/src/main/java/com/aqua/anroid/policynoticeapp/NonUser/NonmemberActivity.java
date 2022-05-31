@@ -1,21 +1,23 @@
-package com.aqua.anroid.policynoticeapp.User;
+package com.aqua.anroid.policynoticeapp.NonUser;
 
-
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.aqua.anroid.policynoticeapp.MenuActivity;
 import com.aqua.anroid.policynoticeapp.Parser.PublicDataDetail;
 import com.aqua.anroid.policynoticeapp.Parser.PublicDataList;
 import com.aqua.anroid.policynoticeapp.Parser.PublicDataParser;
@@ -25,17 +27,23 @@ import com.aqua.anroid.policynoticeapp.R;
 
 import java.util.ArrayList;
 
+//import com.mobile.PolicyApp.R;
 
-public class NonmemberActivity extends AppCompatActivity {
+public class NonmemberActivity extends AppCompatActivity implements NonParsingAdapter.OnItemClick {
     private static String IP_ADDRESS = "10.0.2.2";
     private static String TAG = "phptest";
     private static final String TAG_JSON="root";
-
+    String userID;
     ImageView btn_menu;
+    ImageView chatbot;
+
     String mJsonString;
+    public static Context context;
 
     PublicDataParser parser = new PublicDataParser();
-    ArrayList<PublicDataList> publicDataArray;
+    ArrayList<PublicDataList> publicDataArray = new ArrayList<>();;
+    ArrayList<PublicDataList> publicDataList;
+
     ArrayList<PublicDataDetail> publicDetailArray;
 
     ArrayList<String> scrollServID = new ArrayList<String>();
@@ -44,7 +52,7 @@ public class NonmemberActivity extends AppCompatActivity {
     final ArrayList<String> scrollItemList = new ArrayList<String>();
     ArrayAdapter<String> adapter = null;
 
-    String serachServID; //서비스아이디값
+    String searchServID; //서비스아이디값
     String lifeArrayText;         //생애주기입력값
     String trgterIndvdlArrayText; //가구유형입력값
     String title_search;
@@ -63,43 +71,80 @@ public class NonmemberActivity extends AppCompatActivity {
     Spinner check_search;   //검색유형 스피너 값 저장변수
     int line_index = 0; //개행문자 인덱스 저장 변수
 
+    TextView servNm, jurMnofNm, tgtrDtlCn, slctCritCn, alwServCn, trgterIndvdlArray, lifeArray;
 
-    public void onClick_search_List_non(View view) //목록조회버튼
+    NonParsingAdapter nonParsingAdapter;
+
+    private View layout_1;
+    private View layout_2;
+
+    ListView list;
+    String test;
+    String test2;
+
+    @Override
+    public void onClick(String value) {
+        searchServID = value;
+        Log.d("searchServID",searchServID);
+        SearchDateDetail(searchServID);
+        layout_1.setVisibility(View.VISIBLE);
+        layout_2.setVisibility(View.INVISIBLE);
+    }
+
+    public void onClick_serch_List(View view) //목록조회버튼
     {
-        Toast.makeText(getApplicationContext(), "버튼 클릭!!", Toast.LENGTH_SHORT).show();
+        //list.invalidateViews();
         SearchDataList();
 
     }
 
-    public void  onClick_search_Detail_non(View view) //상세조회버튼
+    public void  onClick_resetBtn(View view) //초기화 버튼
     {
-        Toast.makeText(getApplicationContext(), "버튼 클릭!!", Toast.LENGTH_SHORT).show();
-        SearchDateDetail();
-    }
-
-    public void  onClick_resetBtn_non(View view) //초기화 버튼
-    {
-        Toast.makeText(getApplicationContext(), "버튼 클릭!!", Toast.LENGTH_SHORT).show();
-        input_searchWrd = findViewById(R.id.input_searchWrd_non);
+        input_searchWrd = findViewById(R.id.input_searchWrd);
         input_searchWrd.setText(null);
         input_searchWrd.clearFocus();
         check_life.setSelection(0);
         check_trgterIndvdlArray.setSelection(0);
         check_desireArray.setSelection(0);
-        adapter.clear();
+        publicDataList.clear();
+        nonParsingAdapter.notifyDataSetChanged();
+    }
+    public void back_searchlist(View view){
+        layout_2.setVisibility(View.VISIBLE);
+        layout_1.setVisibility(View.INVISIBLE);
     }
 
+
+    public void chatbot_menu(View view){
+        Intent intent = new Intent(NonmemberActivity.this, NonChatbotMainActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nonmember);
+        context = this;
 
-        check_life = findViewById(R.id.check_life_non);
-        check_trgterIndvdlArray = findViewById(R.id.check_trgterIndvdlArray_non);
-        check_desireArray = findViewById(R.id.check_desireArray_non);
-        check_search = findViewById(R.id.check_search_non);
+        check_life = findViewById(R.id.check_life);
+        check_trgterIndvdlArray = findViewById(R.id.check_trgterIndvdlArray);
+        check_desireArray = findViewById(R.id.check_desireArray);
+        check_search = findViewById(R.id.check_search);
 
+        layout_1 = (LinearLayout) findViewById(R.id.layout);
+        layout_2 = (LinearLayout) findViewById(R.id.main_layout);
+
+        servNm = findViewById(R.id.servNm);
+        jurMnofNm = findViewById(R.id.jurMnofNm);
+        tgtrDtlCn = findViewById(R.id.tgtrDtlCn);
+        slctCritCn = findViewById(R.id.slctCritCn);
+        alwServCn = findViewById(R.id.alwServCn);
+        trgterIndvdlArray = findViewById(R.id.trgterIndvdlArray);
+        lifeArray = findViewById(R.id.lifeArray);
+
+
+        layout_1.setVisibility(View.INVISIBLE);
+        layout_2.setVisibility(View.VISIBLE);
 
         //생애주기 스피너 어뎁터
         ArrayAdapter<String> lifeArray_adapter = new ArrayAdapter<String>(
@@ -166,12 +211,15 @@ public class NonmemberActivity extends AppCompatActivity {
             }
         });
 
-        //메뉴버튼 클릭 시 메뉴화면으로 이동
-        btn_menu = findViewById(R.id.menubtn);
-        btn_menu.setOnClickListener(new View.OnClickListener() {
+        /*로그인 id값 받는 부분*/
+        SharedPreferences sharedPreferences = getSharedPreferences("userID",MODE_PRIVATE);
+        userID  = sharedPreferences.getString("userID","");
+
+        chatbot = findViewById(R.id.chatbot);
+        chatbot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NonmemberActivity.this, MenuActivity.class);
+                Intent intent = new Intent(NonmemberActivity.this, NonChatbotMainActivity.class);
                 startActivity(intent);
 
             }
@@ -188,25 +236,30 @@ public class NonmemberActivity extends AppCompatActivity {
             public  void run(){
                 try {
 
-                    input_searchWrd = findViewById(R.id.input_searchWrd_non);
+                    input_searchWrd = findViewById(R.id.input_searchWrd);
 
                     // 검색에 필요한 입력 데이터
                     WantedList wantedList = new WantedList();
                     wantedList.searchWrd = input_searchWrd.getText().toString();        // 키워드
-                    Log.d(TAG, "검색어 " + wantedList.searchWrd);
 
                     //title_search = wantedList.searchWrd;
                     if(check_search.getSelectedItem().equals("제목")){
                         title_search = wantedList.searchWrd;
                         detail_search = null;
+                        Log.d(TAG, "검색어_제목 " + title_search);
+
                     }
                     else if(check_search.getSelectedItem().equals("내용")){
                         detail_search = wantedList.searchWrd;
                         title_search=null;
+                        Log.d(TAG, "검색어_내용 " + detail_search);
+
                     }
                     else if(check_search.getSelectedItem().equals("제목+내용")){
                         title_search = wantedList.searchWrd;
                         detail_search = wantedList.searchWrd;
+                        Log.d(TAG, "검색어_제목+내용 " + title_search + "," + detail_search);
+
                     }
 
 
@@ -295,8 +348,12 @@ public class NonmemberActivity extends AppCompatActivity {
                         wantedList.desireArray = "";
                     }
 
-                    if( wantedList.desireArray.isEmpty() == false) {
+                    //파싱 데이터 중복 제거
+                    if( !wantedList.desireArray.isEmpty()) {
                         wantedList.lifeArray = "";
+                        wantedList.trgterIndvdlArray = "";
+                    }
+                    else if(!wantedList.lifeArray.isEmpty()&&!wantedList.trgterIndvdlArray.isEmpty()){
                         wantedList.trgterIndvdlArray = "";
                     }
 
@@ -314,17 +371,18 @@ public class NonmemberActivity extends AppCompatActivity {
     }
 
 
-    void SearchDateDetail(){
+
+    void SearchDateDetail(String str){
         new Thread(){
             public  void run(){
                 try {
                     // !? 상세정보클릭시 서비스아이디를 받고 링크만들기]
                     WantedDetail wantedDetail=new WantedDetail();
-                    wantedDetail.servID = serachServID;
+                    wantedDetail.servID = str;
                     if(parser.PulbicDataDetail_HttpURLConnection(wantedDetail)){
                         publicDetailArray = parser.XMLParserDataDetail();
-
                         ShowPublicDetailData();
+
                     }
                 }
                 catch (Exception e){
@@ -335,22 +393,21 @@ public class NonmemberActivity extends AppCompatActivity {
 
     // 리스트뷰초기화
     void InitListView() {
-        ListView list = (ListView) findViewById(R.id.listView1);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scrollItemList);
-
-        //  adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scrollItemList);
-        // list.setAdapter(adapter);
-        //adapter = new ArrayAdapter<String>(this, R.layout.parsing_list,  scrollItemList);
-        list.setAdapter(adapter);
+        list = (ListView) findViewById(R.id.listView1);
+        publicDataList = new ArrayList<>();
+        nonParsingAdapter = new NonParsingAdapter(this, publicDataList, this, this);
+        list.setAdapter(nonParsingAdapter);
 
 
-
-        // 리스트뷰 아이템 클릭
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                serachServID = scrollServID.get(position);
-                Toast.makeText(getApplicationContext(), "servID : " + serachServID  + " / pos : " + position, Toast.LENGTH_SHORT).show();
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
             }
         });
     }
@@ -363,123 +420,103 @@ public class NonmemberActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                scrollItemList.clear();
+                publicDataList.clear(); //리스트 초기화
                 scrollServID.clear();
-                StringBuilder info = new StringBuilder();
                 for(int i = 0; i <publicDataArray.size(); i++) {
-                    info.setLength(0);
-                    if( lifeArrayText=="선택안함") {
+                    if (lifeArrayText.equals("선택안함")) {
                         lifeArrayText = "";
                     }
-                    if(title_search==null){
-                        title_search="";
+                    if (title_search == null) {
+                        title_search = "";
                     }
-                    if(detail_search==null){
-                        detail_search="";
+                    if (detail_search == null) {
+                        detail_search = "";
                     }
-                    if(trgterIndvdlArrayText=="선택안함"){
+                    if (trgterIndvdlArrayText.equals("선택안함")) {
                         trgterIndvdlArrayText = "";
                     }
 
-                    if(detail_search.equals("")) {
-                        if (publicDataArray.get(i).servNm.contains(title_search)) {
-                            if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) && publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)) {     //설정한 생애주기와가구유형에 해당하는값만 출력
+                    //검색어 미입력 or 제목 or 내용
+                    if(title_search.equals("") || detail_search.equals("")) {
+                        if (publicDataArray.get(i).servNm.contains(title_search) &&
+                                publicDataArray.get(i).servDgst.contains(detail_search)) {
+                            if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) &&
+                                    publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)) {//설정한 생애주기와가구유형에 해당하는값만 출력
 
-                                info.append(publicDataArray.get(i).servNm + "\n");
-                                info.append(publicDataArray.get(i).jurMnofNm + "\n");
-                                info.append(publicDataArray.get(i).lifeArray + "\n");
-                                info.append(publicDataArray.get(i).trgterIndvdlArray + "\n");
-                                info.append(publicDataArray.get(i).servDgst + "\n");
-                                info.append(publicDataArray.get(i).servDtlLink + "\n");
                                 scrollServID.add((publicDataArray.get(i).servID));
+                                publicDataList.add(publicDataArray.get(i));
                             }
                         }
                     }
 
-                    else if(title_search.equals("")) {
-                        if (publicDataArray.get(i).servNm.contains(title_search) || publicDataArray.get(i).servDgst.contains(detail_search)) {
-                            if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) && publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)) {     //설정한 생애주기와가구유형에 해당하는값만 출력
+                    //제목+내용
+                    else {
+                        if (publicDataArray.get(i).servNm.contains(title_search) ||
+                                publicDataArray.get(i).servDgst.contains(detail_search)) {
+                            if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) &&
+                                    publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)) {//설정한 생애주기와가구유형에 해당하는값만 출력
 
-                                info.append(publicDataArray.get(i).servNm + "\n");
-                                info.append(publicDataArray.get(i).jurMnofNm + "\n");
-                                info.append(publicDataArray.get(i).lifeArray + "\n");
-                                info.append(publicDataArray.get(i).trgterIndvdlArray + "\n");
-                                info.append(publicDataArray.get(i).servDgst + "\n");
-                                info.append(publicDataArray.get(i).servDtlLink + "\n");
                                 scrollServID.add((publicDataArray.get(i).servID));
+                                publicDataList.add(publicDataArray.get(i));
                             }
                         }
                     }
-                    else
-                    if (publicDataArray.get(i).servDgst.contains(detail_search) ) {
-                        if (publicDataArray.get(i).lifeArray.contains(lifeArrayText) && publicDataArray.get(i).trgterIndvdlArray.contains(trgterIndvdlArrayText)) {     //설정한 생애주기와가구유형에 해당하는값만 출력
-
-                            info.append(publicDataArray.get(i).servNm + "\n");
-                            info.append(publicDataArray.get(i).jurMnofNm + "\n");
-                            info.append(publicDataArray.get(i).lifeArray + "\n");
-                            info.append(publicDataArray.get(i).trgterIndvdlArray + "\n");
-                            info.append(publicDataArray.get(i).servDgst + "\n");
-                            info.append(publicDataArray.get(i).servDtlLink + "\n");
-                            scrollServID.add((publicDataArray.get(i).servID));
-                        }
-                    }
-
-                    if( info.toString().isEmpty()==false) {
-                        scrollItemList.add((i+1) + " : " + info.toString()); }
                 }
-                adapter.notifyDataSetChanged(); //스크롤갱신
+                nonParsingAdapter.notifyDataSetChanged();
+
             }
         });
     }
+
     // 리스트 뷰에 상세 보기 데이터 출력
     void ShowPublicDetailData()
     {
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                scrollItemList.clear(); //아이템리스트초기화
+                for (int i = 0; i < publicDetailArray.size(); i++) {
+                    if (publicDetailArray.get(i).servNm != null)
+                        servNm.setText(publicDetailArray.get(i).servNm);
 
-                for(int i = 0; i <publicDetailArray.size(); i++)
-                {
-                    StringBuilder info = new StringBuilder();
-                    if(publicDetailArray.get(i).servNm != null) {
-                        info.append(publicDetailArray.get(i).servNm + "\n");
-                        info.append("\n"); }
-                    if(publicDetailArray.get(i).jurMnofNm != null)
-                        info.append(publicDetailArray.get(i).jurMnofNm + "\n");
-
-                    if(publicDetailArray.get(i).tgtrDtlCn != null)
-                        info.append(publicDetailArray.get(i).tgtrDtlCn + "\n");
-
-                    if(publicDetailArray.get(i).slctCritCn != null)
-                        info.append(publicDetailArray.get(i).slctCritCn + "\n");
-
-                    if(publicDetailArray.get(i).alwServCn != null)
-                        info.append(publicDetailArray.get(i).alwServCn + "\n");
-
-                    if(publicDetailArray.get(i).trgterIndvdlArray != null)
-                        info.append(publicDetailArray.get(i).trgterIndvdlArray + "\n");
-
-                    if(publicDetailArray.get(i).lifeArray != null)
-                        info.append(publicDetailArray.get(i).lifeArray + "\n");
-
-                    /*개행문자 제거*/
-                    while (info != null) { //stringbuilder 끝까지 반복
-                        line_index = info.indexOf("\n\n\n"); //"\n\n\n"의 첫번째 인덱스를 n에 대입
-                        if(line_index==-1) { //"\n\n\n" 발견되지 않으면 break
-                            break;
+                    if (publicDetailArray.get(i).jurMnofNm != null) {
+                        //jurMnofNm.setText(publicDetailArray.get(i).jurMnofNm);
+                        if(publicDetailArray.get(i).jurMnofNm.contains("\n\n\n")){
+                            test = publicDetailArray.get(i).jurMnofNm.replace("\n\n\n\n","");
                         }
-                        else {
-                            info.delete(line_index, line_index + 2); //n번째부터 n+1번째까지 삭제("\n\n"삭제)
+                        jurMnofNm.setText(test);
+                    }
+                    if (publicDetailArray.get(i).tgtrDtlCn != null) {
+                        //tgtrDtlCn.setText(publicDetailArray.get(i).tgtrDtlCn);
+                        if(publicDetailArray.get(i).tgtrDtlCn.contains("\n\n\n")){
+                            test = publicDetailArray.get(i).tgtrDtlCn.replace("\n\n\n\n","");
                         }
+                        tgtrDtlCn.setText(test);
                     }
 
-                    scrollItemList.add(" : " + info.toString());
+                    if (publicDetailArray.get(i).slctCritCn != null) {
+                        //slctCritCn.setText(publicDetailArray.get(i).slctCritCn);
+                        if(publicDetailArray.get(i).slctCritCn.contains("\n\n\n")){
+                            test = publicDetailArray.get(i).slctCritCn.replace("\n\n\n","");
+                        }
+                        slctCritCn.setText(test);
+                    }
+
+                    if (publicDetailArray.get(i).alwServCn != null) {
+                        //alwServCn.setText(publicDetailArray.get(i).alwServCn);
+                        if(publicDetailArray.get(i).alwServCn.contains("\n\n\n")){
+                            test2 = publicDetailArray.get(i).alwServCn.replace("\n\n\n","");
+
+                        }
+                        alwServCn.setText(test2);
+                    }
+                    if (publicDetailArray.get(i).trgterIndvdlArray != null)
+                        trgterIndvdlArray.setText(publicDetailArray.get(i).trgterIndvdlArray);
+
+                    if (publicDetailArray.get(i).lifeArray != null)
+                        lifeArray.setText(publicDetailArray.get(i).lifeArray);
                 }
-                adapter.notifyDataSetChanged();
             }
         });
     }
-
 }
-
