@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,6 +55,9 @@ public class ParsingAdapter extends BaseAdapter {
     private Activity activity;
     private OnItemClick listener;
 
+    private SharedPreferences mPref;
+    private SharedPreferences.Editor mPrefEdit;
+
     String servID;
 
 
@@ -84,6 +88,9 @@ public class ParsingAdapter extends BaseAdapter {
         Context context = parent.getContext();
         final ViewHolder holder;//아이템 내 view들을 저장할 holder 생성
         userID = ((MemberActivity)MemberActivity.context).userID;
+
+        mPref = context.getSharedPreferences("setting", 0);
+        mPrefEdit = mPref.edit();
 
         final PublicDataList publicDataList_item = publicDataLists.get(i);
 
@@ -124,7 +131,7 @@ public class ParsingAdapter extends BaseAdapter {
                 listener.onClick(servID);
             }
         });
-        Button add_favorite = (Button) view.findViewById(R.id.add_favorite);
+        /*Button add_favorite = (Button) view.findViewById(R.id.add_favorite);
         add_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,7 +139,43 @@ public class ParsingAdapter extends BaseAdapter {
                 task.execute("http://" + IP_ADDRESS + "/favorite.php", userID, holder.list_text_name.getText().toString(), holder.list_text_content.getText().toString());
 
             }
+        });*/
+        CheckBox add_favorite = (CheckBox)view.findViewById(R.id.add_favorite);
+        add_favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean newState = !publicDataList_item.isChecked(); //check 면 uncheck로 uncheck 면 check로 바꿔 저장
+                publicDataList_item.checked = newState;
+                if(newState==true){
+                    FavoriteInsertData task = new FavoriteInsertData();
+                    task.execute("http://" + IP_ADDRESS + "/favorite.php", userID, holder.list_text_name.getText().toString(), holder.list_text_content.getText().toString());
+                    mPrefEdit.putString("check", "1");
+                    mPrefEdit.commit();
+                    Log.d("ckeck", "on");
+                }
+                else{
+                    DeleteData task = new DeleteData();
+                    task.execute(holder.list_text_name.getText().toString());
+                    mPrefEdit.putString("check", "0");
+                    mPrefEdit.commit();
+                    Log.d("check", "off");
+
+                }
+            }
         });
+
+         if(mPref.getString("check", "").equals("1")) {
+            add_favorite.setChecked(true);
+            Log.d("setting", "true");
+        } else {
+            add_favorite.setChecked(false);
+            Log.d("setting", "false");
+        }
+
+
+
+        add_favorite.setChecked(isChecked(i)); // 스크롤 해도 체크 상태 저장되도록 하기 위함
+
         //해당 view 반납
         return view;
     }
@@ -141,6 +184,9 @@ public class ParsingAdapter extends BaseAdapter {
         void onClick (String value);
     }
 
+    public boolean isChecked(int i){
+        return publicDataLists.get(i).checked;
+    }
 
     //지정한 위치(i)에 있는 데이터 리턴턴
     @Override
@@ -260,5 +306,100 @@ public class ParsingAdapter extends BaseAdapter {
 
         }
 
+    }
+
+    class DeleteData extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Log.d("즐찾결과",result);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+            alertDialogBuilder
+                    .setMessage(result)
+                    .setCancelable(true)
+                    .setPositiveButton("확인",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int arg1) {
+                                    //context.startActivity(new Intent(context, FavoriteActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                                }
+                            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            String searchKeyword1 = params[0];
+
+            String serverURL = "http://10.0.2.2/favorite_delete.php";
+            String postParameters = "item_name=" + searchKeyword1;
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+
+                InputStream inputStream;
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                } else {
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    sb.append(line);
+                }
+
+
+                bufferedReader.close();
+
+
+                return sb.toString();
+
+
+            } catch (Exception e) {
+
+                // Log.d(TAG, "DeleteData: Error ", e);
+
+                return new String("Error: " + e.getMessage());
+            }
+
+        }
     }
 }

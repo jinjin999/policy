@@ -9,6 +9,10 @@ public class PublicDataList {
     public String servNm;             // 제목
     public String trgterIndvdlArray;  // 대상
     public String servID;             // 서비스 ID
+    public boolean checked;
+    public Boolean isChecked(){
+        return checked;
+    }
 
     public PublicDataList(){
 
